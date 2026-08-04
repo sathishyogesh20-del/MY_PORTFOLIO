@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yogesh | AI Developer</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+.contact-container {
+    max-width: 850px;
+    margin: auto;
+    padding: 40px;
+    border-radius: 22px;
+    background: #0b1025;
+    border: 1px solid rgba(0, 212, 255, .35);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, .45);
+}
+
+.contact-intro {
+    text-align: center;
+    color: #d5d5d5;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.contact-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    color: #00d4ff;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid rgba(255, 255, 255, .2);
+    border-radius: 10px;
+    outline: none;
+    background: #111a38;
+    color: #fff;
+    font-family: inherit;
+    font-size: 15px;
+    transition: .3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #00d4ff;
+    box-shadow: 0 0 12px rgba(0, 212, 255, .35);
+}
+
+.form-group textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.submit-btn {
+    grid-column: 1 / -1;
+    border: none;
+    cursor: pointer;
+    justify-self: center;
+}
+
+.contact-email {
+    text-align: center;
+    margin-top: 25px;
+    color: #d5d5d5;
+}
+
+.contact-email a {
+    color: #00d4ff;
+    text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    .contact-container {
+        padding: 25px 18px;
+    }
+
+    .contact-form {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full-width,
+    .submit-btn {
+        grid-column: auto;
+    }
+}
+</style>
+</head>
+
+<body>
+<div id="particles"></div>
+
+<header>
+    <nav>
+        <h2 class="logo">YOGESH</h2>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section id="home" class="hero">
+    <div class="hero-left">
+        <h1>Hi, I'm <span>Yogesh</span></h1>
+        <h3>AI Developer</h3>
+        <p>Creator of the COSMOS Ecosystem. Building AI-powered applications, websites, and futuristic technologies.</p>
+        <a href="#contact" class="btn">Contact Me</a>
+    </div>
+
+    <div class="hero-right">
+        <img src="https://uploads.onecompiler.io/44rsm5t7v/1785848311238/profile.jpg.jpeg" alt="Yogesh">
+    </div>
+</section>
+
+<section id="about">
+    <h2>About Me</h2>
+    <div class="card">
+        <p>Hello! I'm <b>Yogesh</b>, a passionate student from Madurai, Tamil Nadu. Currently studying in the 9th Standard at <b>Seventh Day Adventist English Higher Secondary School.</b> I enjoy creating futuristic AI products, websites, mobile apps, automation tools, and intelligent systems. I am the solo developer of the <b>COSMOS Ecosystem</b>, an ambitious AI platform designed to bring together multiple intelligent services.</p>
+    </div>
+</section>
+
+<section id="skills">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+        <div class="skill">
+            <i class="fa-solid fa-brain"></i>
+            <h3>Artificial Intelligence</h3>
+        </div>
+        <div class="skill">
+            <i class="fa-solid fa-code"></i>
+            <h3>Web Development</h3>
+        </div>
+        <div class="skill">
+            <i class="fa-solid fa-mobile-screen"></i>
+            <h3>App Development</h3>
+        </div>
+        <div class="skill">
+            <i class="fa-brands fa-python"></i>
+            <h3>Python Programming</h3>
+        </div>
+        <div class="skill">
+            <i class="fa-solid fa-microphone"></i>
+            <h3>Spoken English</h3>
+        </div>
+        <div class="skill">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <h3>Research Analyst</h3>
+        </div>
+        <div class="skill">
+            <i class="fa-solid fa-robot"></i>
+            <h3>AI Developer</h3>
+        </div>
+        <div class="skill">
+            <i class="fa-solid fa-lightbulb"></i>
+            <h3>Prompt Engineering</h3>
+        </div>
+    </div>
+</section>
+
+<section id="projects">
+    <h2>Projects</h2>
+
+    <div class="projects-grid">
+        <a href="https://cosmos128.wordpress.com/" class="project-card" target="_blank" rel="noopener noreferrer">
+            <h3>cosmos.128</h3>
+            <p>Visit the cosmos.128 project website.</p>
+        </a>
+
+        <a href="https://sathishyogesh20.wixsite.com/cosmos" class="project-card" target="_blank" rel="noopener noreferrer">
+            <h3>cosmos-128.v1</h3>
+            <p>Explore the cosmos-128.v1 project.</p>
+        </a>
+
+        <a href="https://yogeshcosmos.lovable.app" class="project-card" target="_blank" rel="noopener noreferrer">
+            <h3>cosmos-129</h3>
+            <p>Open the cosmos-129 application.</p>
+        </a>
+
+        <a href="https://yogeshcosmos20.lovable.app" class="project-card" target="_blank" rel="noopener noreferrer">
+            <h3>cosmos-ai</h3>
+            <p>Explore the cosmos-ai application.</p>
+        </a>
+
+        <a href="https://heyzine.com/flip-book/9df7afbf55.html" class="project-card" target="_blank" rel="noopener noreferrer">
+            <h3>Code the Cosmos [E-book]</h3>
+            <p>Read the Code the Cosmos e-book.</p>
+        </a>
+    </div>
+
+    <div style="text-align:center; margin-top:40px;">
+        <a
+            href="https://github.com/sathishyogesh20-del"
+            class="btn"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit Yogesh's GitHub profile">
+            <i class="fa-brands fa-github"></i>
+            Visit My GitHub
+        </a>
+    </div>
+</section>
+
+<section id="contact">
+    <h2>Contact Me</h2>
+
+    <div class="contact-container">
+        <p class="contact-intro">
+            Have a project idea, question, or collaboration opportunity?
+            Send me a message using the form below.
+        </p>
+
+        <form class="contact-form" action="mailto:sathishyogesh20@gmail.com" method="post" enctype="text/plain">
+            <div class="form-group">
+                <label for="first-name">First Name</label>
+                <input type="text" id="first-name" name="First Name" placeholder="Enter your first name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="last-name">Last Name</label>
+                <input type="text" id="last-name" name="Last Name" placeholder="Enter your last name" required>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="Email" placeholder="Enter your email address" required>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="message">Message</label>
+                <textarea id="message" name="Message" placeholder="Write your message here..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn submit-btn">Send Message</button>
+        </form>
+
+        <p class="contact-email">
+            Or email me directly at
+            <a href="mailto:sathishyogesh20@gmail.com">sathishyogesh20@gmail.com</a>
+        </p>
+    </div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
