@@ -93,6 +93,28 @@
     text-decoration: none;
 }
 
+.achievement-image {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 212, 255, .35);
+}
+
+.achievement-card {
+    overflow: hidden;
+}
+
+.achievement-card h3 {
+    color: #00d4ff;
+}
+
+.achievement-card p {
+    color: #d5d5d5;
+    line-height: 1.7;
+}
+
 @media (max-width: 600px) {
     .contact-container {
         padding: 25px 18px;
@@ -105,6 +127,11 @@
     .form-group.full-width,
     .submit-btn {
         grid-column: auto;
+    }
+
+    .achievement-image {
+        height: auto;
+        max-height: 260px;
     }
 }
 </style>
@@ -120,6 +147,7 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#skills">Skills</a></li>
+            <li><a href="#achievements">Achievements</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
@@ -135,7 +163,7 @@
     </div>
 
     <div class="hero-right">
-        <img src="https://uploads.onecompiler.io/44rsm5t7v/1785848311238/profile.jpg.jpeg" alt="Yogesh">
+        <img src="https://uploads.onecompiler.io/44rsm5t7v/1785848311238/profile.jpg.jpeg" alt="Portrait of Yogesh">
     </div>
 </section>
 
@@ -184,6 +212,75 @@
     </div>
 </section>
 
+<section id="achievements">
+    <h2>Achievements</h2>
+
+    <div class="card">
+        <p>
+            I got certified by Google for attaining their Gemini for Students exam
+            in the University category, and I also received certifications from
+            Anthropic, OpenAI, and Simplilearn. I have also registered for upcoming courses.
+        </p>
+    </div>
+
+    <div class="projects-grid" style="margin-top: 35px;">
+        <a href="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI_CERTIFICATE.png"
+           class="project-card achievement-card"
+           target="_blank"
+           rel="noopener noreferrer">
+            <img class="achievement-image"
+                 src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI_CERTIFICATE.png"
+                 alt="Gemini AI for Students certificate">
+            <h3>No. 1 — Gemini AI for Students</h3>
+            <p>View the Google Gemini AI for Students certificate.</p>
+        </a>
+
+        <a href="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI%20CERTFIFCATIONS%20FOR%20STUDENTS%20(UNIVERSITY).png"
+           class="project-card achievement-card"
+           target="_blank"
+           rel="noopener noreferrer">
+            <img class="achievement-image"
+                 src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI%20CERTFIFCATIONS%20FOR%20STUDENTS%20(UNIVERSITY).png"
+                 alt="Gemini AI for Students University certificate">
+            <h3>No. 2 — Gemini AI for Students (University)</h3>
+            <p>View the Google Gemini University category certificate.</p>
+        </a>
+
+        <a href="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/OPENAI%20CERTIFICATE.jpg"
+           class="project-card achievement-card"
+           target="_blank"
+           rel="noopener noreferrer">
+            <img class="achievement-image"
+                 src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/OPENAI%20CERTIFICATE.jpg"
+                 alt="OpenAI ChatGPT certificate">
+            <h3>No. 3 — OpenAI (ChatGPT)</h3>
+            <p>View the OpenAI ChatGPT certificate.</p>
+        </a>
+
+        <a href="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/CLAUDE%20CERTIFICATE%20(%20AI%20FLUENCY%20FOR%20STUDENTS.).png"
+           class="project-card achievement-card"
+           target="_blank"
+           rel="noopener noreferrer">
+            <img class="achievement-image"
+                 src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/CLAUDE%20CERTIFICATE%20(%20AI%20FLUENCY%20FOR%20STUDENTS.).png"
+                 alt="Anthropic Claude AI Fluency for Students certificate">
+            <h3>No. 4 — Anthropic (Claude AI)</h3>
+            <p>View the Anthropic Claude AI certificate.</p>
+        </a>
+
+        <a href="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GOOGLE%20CLOUD.png"
+           class="project-card achievement-card"
+           target="_blank"
+           rel="noopener noreferrer">
+            <img class="achievement-image"
+                 src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GOOGLE%20CLOUD.png"
+                 alt="Simplilearn Google Cloud certificate">
+            <h3>No. 5 — Simplilearn (Google Cloud)</h3>
+            <p>View the Simplilearn Google Cloud certificate.</p>
+        </a>
+    </div>
+</section>
+
 <section id="projects">
     <h2>Projects</h2>
 
@@ -215,12 +312,11 @@
     </div>
 
     <div style="text-align:center; margin-top:40px;">
-        <a
-            href="https://github.com/sathishyogesh20-del"
-            class="btn"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Visit Yogesh's GitHub profile">
+        <a href="https://github.com/sathishyogesh20-del"
+           class="btn"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Visit Yogesh's GitHub profile">
             <i class="fa-brands fa-github"></i>
             Visit My GitHub
         </a>
@@ -236,28 +332,59 @@
             Send me a message using the form below.
         </p>
 
-        <form class="contact-form" action="mailto:sathishyogesh20@gmail.com" method="post" enctype="text/plain">
+        <!-- FormSubmit sends messages to your Gmail address. -->
+        <form class="contact-form"
+              action="https://formsubmit.co/sathishyogesh20@gmail.com"
+              method="POST">
+
+            <input type="hidden" name="_subject" value="New Portfolio Contact Message">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="true">
+
+            <!-- Prevents spam bots from submitting the form. -->
+            <input type="text" name="_honey" style="display:none">
+
             <div class="form-group">
                 <label for="first-name">First Name</label>
-                <input type="text" id="first-name" name="First Name" placeholder="Enter your first name" required>
+                <input type="text"
+                       id="first-name"
+                       name="first_name"
+                       placeholder="Enter your first name"
+                       autocomplete="given-name"
+                       required>
             </div>
 
             <div class="form-group">
                 <label for="last-name">Last Name</label>
-                <input type="text" id="last-name" name="Last Name" placeholder="Enter your last name" required>
+                <input type="text"
+                       id="last-name"
+                       name="last_name"
+                       placeholder="Enter your last name"
+                       autocomplete="family-name"
+                       required>
             </div>
 
             <div class="form-group full-width">
                 <label for="email">Email Address</label>
-                <input type="email" id="email" name="Email" placeholder="Enter your email address" required>
+                <input type="email"
+                       id="email"
+                       name="email"
+                       placeholder="Enter your email address"
+                       autocomplete="email"
+                       required>
             </div>
 
             <div class="form-group full-width">
                 <label for="message">Message</label>
-                <textarea id="message" name="Message" placeholder="Write your message here..." required></textarea>
+                <textarea id="message"
+                          name="message"
+                          placeholder="Write your message here..."
+                          required></textarea>
             </div>
 
-            <button type="submit" class="btn submit-btn">Send Message</button>
+            <button type="submit" class="btn submit-btn">
+                Send Message
+            </button>
         </form>
 
         <p class="contact-email">
