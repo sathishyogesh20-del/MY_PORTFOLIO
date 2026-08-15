@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sathishyogesh20-del.github.io/MY_PORTFOLIO/sitemap.xml
