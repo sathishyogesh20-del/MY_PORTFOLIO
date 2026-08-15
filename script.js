@@ -1,7 +1,7 @@
 const sections = document.querySelectorAll("section");
 const navLinks = document.querySelectorAll("nav a");
 const header = document.querySelector("header");
-const subtitle = document.querySelector(".hero-left h3");
+const subtitle = document.querySelector(".hero-left h2");
 const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
 ).matches;
@@ -101,7 +101,9 @@ if ("IntersectionObserver" in window) {
 
 /* Header scroll state */
 window.addEventListener("scroll", () => {
-    header.classList.toggle("scrolled", window.scrollY > 80);
+    if (header) {
+        header.classList.toggle("scrolled", window.scrollY > 80);
+    }
 }, { passive: true });
 
 /* Typing animation */
@@ -126,14 +128,15 @@ function typeText() {
         ? currentText.substring(0, characterIndex--)
         : currentText.substring(0, characterIndex++);
 
-    if (!deleting && characterIndex === currentText.length + 1) {
+    if (!deleting && characterIndex > currentText.length) {
         deleting = true;
         setTimeout(typeText, 1400);
         return;
     }
 
-    if (deleting && characterIndex === 0) {
+    if (deleting && characterIndex < 0) {
         deleting = false;
+        characterIndex = 0;
         textIndex = (textIndex + 1) % typingTexts.length;
     }
 
@@ -233,13 +236,6 @@ const contactForm = document.querySelector(".contact-form");
 if (contactForm) {
     const emailInput = contactForm.querySelector('input[name="email"]');
 
-    /*
-     * FormSubmit sends the form directly to:
-     * sathishyogesh20@gmail.com
-     *
-     * Do not use fetch here because direct form submission is more
-     * reliable and allows FormSubmit to redirect correctly.
-     */
     contactForm.addEventListener("submit", () => {
         if (emailInput) {
             let replyToInput = contactForm.querySelector(
