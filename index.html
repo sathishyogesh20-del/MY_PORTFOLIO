@@ -10,6 +10,9 @@
     <meta name="author" content="Sathish Yogesh">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#0b0816">
+    <link rel="canonical" href="https://sathishyogesh20-del.github.io/MY_PORTFOLIO/">
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%230b0816'/%3E%3Cellipse cx='50' cy='50' rx='44' ry='16' fill='none' stroke='%23b388ff' stroke-width='4'/%3E%3Ccircle cx='50' cy='50' r='10' fill='%23ff6f91'/%3E%3Ccircle cx='6' cy='50' r='4' fill='%2354e6c2'/%3E%3C/svg%3E">
 
     <meta property="og:type" content="profile">
     <meta property="og:title" content="Yogesh | AI Developer & COSMOS Creator">
@@ -17,6 +20,7 @@
     <meta property="og:image" content="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/ae7e4c70-a22f-4014-80ed-903dc4bb7682.jpg">
     <meta property="og:image:alt" content="Portrait of Yogesh, an AI developer">
     <meta property="og:site_name" content="Yogesh Portfolio">
+    <meta property="og:url" content="https://sathishyogesh20-del.github.io/">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Yogesh | AI Developer & COSMOS Creator">
@@ -26,7 +30,6 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <script type="application/ld+json">
@@ -59,131 +62,6 @@
         ]
     }
     </script>
-
-    <style>
-        .contact-container {
-            max-width: 850px;
-            margin: auto;
-            padding: 40px;
-            border-radius: 22px;
-            background: #0b1025;
-            border: 1px solid rgba(0, 212, 255, .35);
-            box-shadow: 0 10px 35px rgba(0, 0, 0, .45);
-        }
-
-        .contact-intro {
-            text-align: center;
-            color: #d5d5d5;
-            line-height: 1.8;
-            margin-bottom: 30px;
-        }
-
-        .contact-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 22px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-
-        .form-group label {
-            color: #00d4ff;
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid rgba(255, 255, 255, .2);
-            border-radius: 10px;
-            outline: none;
-            background: #111a38;
-            color: #fff;
-            font-family: inherit;
-            font-size: 15px;
-            transition: .3s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: #00d4ff;
-            box-shadow: 0 0 12px rgba(0, 212, 255, .35);
-        }
-
-        .form-group textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            grid-column: 1 / -1;
-            border: none;
-            cursor: pointer;
-            justify-self: center;
-        }
-
-        .contact-email {
-            text-align: center;
-            margin-top: 25px;
-            color: #d5d5d5;
-        }
-
-        .contact-email a {
-            color: #00d4ff;
-            text-decoration: none;
-        }
-
-        .achievement-image {
-            width: 100%;
-            height: 210px;
-            object-fit: cover;
-            margin-bottom: 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(0, 212, 255, .35);
-        }
-
-        .achievement-card {
-            overflow: hidden;
-        }
-
-        .achievement-card h3 {
-            color: #00d4ff;
-        }
-
-        .achievement-card p {
-            color: #d5d5d5;
-            line-height: 1.7;
-        }
-
-        @media (max-width: 600px) {
-            .contact-container {
-                padding: 25px 18px;
-            }
-
-            .contact-form {
-                grid-template-columns: 1fr;
-            }
-
-            .form-group.full-width,
-            .submit-btn {
-                grid-column: auto;
-            }
-
-            .achievement-image {
-                height: auto;
-                max-height: 260px;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -192,7 +70,12 @@
     <header>
         <nav aria-label="Primary navigation">
             <a href="#home" class="logo" aria-label="Yogesh home">YOGESH</a>
-            <ul>
+
+            <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+                <i class="fa-solid fa-bars" aria-hidden="true"></i>
+            </button>
+
+            <ul id="nav-links" class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
@@ -297,7 +180,7 @@
                    rel="noopener noreferrer">
                     <img class="achievement-image"
                          src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI_CERTIFICATE.png"
-                         alt="Google Gemini AI for Students certificate"
+                         alt="Portrait of Yogesh, an AI developer from Madurai"
                          loading="lazy"
                          width="400"
                          height="210">
