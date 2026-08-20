@@ -140,6 +140,7 @@ header.scrolled {
 }
 
 nav {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -168,7 +169,7 @@ nav {
     transform: scale(1.05);
 }
 
-nav ul {
+.nav-links {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
@@ -176,7 +177,7 @@ nav ul {
     list-style: none;
 }
 
-nav a {
+.nav-links a {
     position: relative;
     color: var(--text);
     font-size: .8rem;
@@ -185,12 +186,12 @@ nav a {
     transition: color .25s ease;
 }
 
-nav a:hover,
-nav a.active {
+.nav-links a:hover,
+.nav-links a.active {
     color: var(--primary-light);
 }
 
-nav a::after {
+.nav-links a::after {
     position: absolute;
     right: 0;
     bottom: -7px;
@@ -204,9 +205,29 @@ nav a::after {
     transition: width .25s ease;
 }
 
-nav a:hover::after,
-nav a.active::after {
+.nav-links a:hover::after,
+.nav-links a.active::after {
     width: 100%;
+}
+
+/* Hamburger toggle (hidden on desktop) */
+.nav-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--primary-light);
+    background: var(--surface);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: border-color .25s ease, transform .2s ease;
+}
+
+.nav-toggle:hover {
+    border-color: var(--primary);
 }
 
 .theme-toggle {
@@ -606,27 +627,46 @@ section h2::after {
 /* Responsive layout */
 @media (max-width: 900px) {
     nav {
-        flex-direction: column;
-        justify-content: center;
-        gap: 9px;
-        padding: 13px 0;
+        min-height: 68px;
     }
 
-    nav ul {
-        justify-content: center;
-        gap: 9px 16px;
+    .nav-toggle {
+        display: inline-flex;
     }
 
     .theme-toggle {
+        order: 2;
+    }
+
+    .nav-links {
         position: absolute;
-        top: 17px;
-        right: 4%;
+        top: calc(100% + 12px);
+        right: 0;
+        left: 0;
+        display: none;
+        flex-direction: column;
+        gap: 4px;
+        padding: 18px;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 10px 6px;
+        font-size: .9rem;
     }
 
     .hero {
         flex-direction: column;
         gap: 45px;
-        padding-top: 185px;
+        padding-top: 150px;
         text-align: center;
     }
 
@@ -642,15 +682,7 @@ section h2::after {
 
 @media (max-width: 600px) {
     html {
-        scroll-padding-top: 165px;
-    }
-
-    nav ul {
-        gap: 7px 11px;
-    }
-
-    nav a {
-        font-size: .7rem;
+        scroll-padding-top: 130px;
     }
 
     section {
@@ -661,7 +693,7 @@ section h2::after {
     .hero {
         width: min(90%, 520px);
         min-height: auto;
-        padding-top: 210px;
+        padding-top: 170px;
         padding-bottom: 75px;
     }
 
