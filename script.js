@@ -1,10 +1,42 @@
 const sections = document.querySelectorAll("section");
-const navLinks = document.querySelectorAll("nav a");
+const navLinks = document.querySelectorAll(".nav-links a");
 const header = document.querySelector("header");
 const subtitle = document.querySelector(".hero-left h2");
 const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
 ).matches;
+
+/* Mobile hamburger menu */
+const navToggle = document.querySelector(".nav-toggle");
+const navList = document.querySelector(".nav-links");
+
+function closeNavMenu() {
+    if (!navToggle || !navList) return;
+    navList.classList.remove("open");
+    navToggle.setAttribute("aria-expanded", "false");
+    navToggle.setAttribute("aria-label", "Open menu");
+}
+
+if (navToggle && navList) {
+    navToggle.addEventListener("click", () => {
+        const isOpen = navList.classList.toggle("open");
+        navToggle.setAttribute("aria-expanded", String(isOpen));
+        navToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+    });
+
+    navLinks.forEach((link) => {
+        link.addEventListener("click", closeNavMenu);
+    });
+
+    document.addEventListener("click", (event) => {
+        const clickedInsideNav = event.target.closest("nav");
+        if (!clickedInsideNav) closeNavMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeNavMenu();
+    });
+}
 
 /* Theme switcher */
 const themeButton = document.createElement("button");
