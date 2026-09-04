@@ -1,7 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://sathishyogesh20-del.github.io/MY_PORTFOLIO/</loc>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/ae7e4c70-a22f-4014-80ed-903dc4bb7682.jpg</image:loc>
+      <image:title>Sathish Yogesh AI Developer</image:title>
+      <image:caption>Portrait of Sathish Yogesh, an AI developer and creator of COSMOS Ecosystem</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI_CERTIFICATE.png</image:loc>
+      <image:title>Google Gemini AI for Students Certificate</image:title>
+      <image:caption>Google Gemini AI certification earned by Sathish Yogesh</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI%20CERTFIFCATIONS%20FOR%20STUDENTS%20(UNIVERSITY).png</image:loc>
+      <image:title>Google Gemini AI University Category Certificate</image:title>
+      <image:caption>Google Gemini University category certification earned by Sathish Yogesh</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI%20CERTFICATION%20FOR%20EDUCATOR.png</image:loc>
+      <image:title>Google Gemini for Educator Certificate</image:title>
+      <image:caption>Gemini for Educator certification earned by Sathish Yogesh</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/OPENAI%20CERTIFICATE.jpg</image:loc>
+      <image:title>OpenAI ChatGPT Certificate</image:title>
+      <image:caption>OpenAI ChatGPT certification earned by Sathish Yogesh</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/CLAUDE%20CERTIFICATE%20(%20AI%20FLUENCY%20FOR%20STUDENTS.).png</image:loc>
+      <image:title>Anthropic Claude AI Fluency Certificate</image:title>
+      <image:caption>Anthropic Claude AI fluency for students certification earned by Sathish Yogesh</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GOOGLE%20CLOUD.png</image:loc>
+      <image:title>Simplilearn Google Cloud Certificate</image:title>
+      <image:caption>Simplilearn Google Cloud computing fundamentals certificate earned by Sathish Yogesh</image:caption>
+    </image:image>
   </url>
 </urlset>
