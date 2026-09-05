@@ -155,6 +155,19 @@
 <body>
     <div id="particles" aria-hidden="true"></div>
 
+    <div id="auth-gate" class="auth-gate">
+        <div class="auth-gate-inner">
+            <div class="auth-logo">YOGESH</div>
+            <p>Sign in with Google to view this portfolio.</p>
+            <button type="button" id="google-signin-btn" class="btn auth-signin-btn">
+                <i class="fa-brands fa-google" aria-hidden="true"></i>
+                Sign in with Google
+            </button>
+            <p id="auth-error" class="auth-error" hidden></p>
+        </div>
+    </div>
+
+    <div id="site-content" hidden>
     <header>
         <nav aria-label="Primary navigation">
             <a href="#home" class="logo" aria-label="Yogesh home">YOGESH</a>
@@ -172,6 +185,12 @@
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+
+            <div id="user-badge" class="user-badge" hidden>
+                <img id="user-avatar" class="user-avatar" alt="" referrerpolicy="no-referrer">
+                <span id="user-name"></span>
+                <button type="button" id="signout-btn" class="signout-btn">Sign Out</button>
+            </div>
         </nav>
     </header>
 
@@ -382,13 +401,7 @@
                     Send a message using the contact form below.
                 </p>
 
-                <form class="contact-form" action="https://formsubmit.co/sathishyogesh20@gmail.com" method="POST">
-
-                    <input type="hidden" name="_subject" value="New Portfolio Contact Message">
-                    <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_captcha" value="true">
-                    <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
-
+                <form class="contact-form" id="contactForm">
                     <div class="form-group">
                         <label for="first-name">First Name</label>
                         <input type="text" id="first-name" name="first_name" placeholder="Enter your first name"
@@ -427,6 +440,12 @@
     <footer style="text-align:center; padding:30px 20px; color:var(--muted);">
         <p>&copy; 2026 Sathish Yogesh. All rights reserved.</p>
     </footer>
+    </div>
+
+    <!-- Firebase (compat build, no bundler needed) -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="auth.js"></script>
 
     <script src="script.js" defer></script>
 </body>
