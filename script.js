@@ -351,33 +351,41 @@ if (
     });
 }
 
-/* Contact form */
-const contactForm = document.querySelector(".contact-form");
+/* Contact form -> Google Apps Script -> Google Sheet */
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyTqASoylpAQJ1Z1_NVonR7ns4lDghu8MbR8ekOrsXNzCQugfTtKRsrJ4rT88GpiJ-8/exec";
+
+const contactForm = document.getElementById("contactForm");
 
 if (contactForm) {
-    const emailInput = contactForm.querySelector('input[name="email"]');
-
-    contactForm.addEventListener("submit", () => {
-        if (emailInput) {
-            let replyToInput = contactForm.querySelector(
-                'input[name="_replyto"]'
-            );
-
-            if (!replyToInput) {
-                replyToInput = document.createElement("input");
-                replyToInput.type = "hidden";
-                replyToInput.name = "_replyto";
-                contactForm.appendChild(replyToInput);
-            }
-
-            replyToInput.value = emailInput.value;
-        }
+    contactForm.addEventListener("submit", (event) => {
+        event.preventDefault();
 
         const button = contactForm.querySelector("button[type='submit']");
+        const formData = new FormData(contactForm);
 
         if (button) {
             button.disabled = true;
             button.textContent = "Sending...";
         }
+
+        fetch(WEB_APP_URL, {
+            method: "POST",
+            body: formData
+        })
+            .then(() => {
+                if (button) button.textContent = "Message Sent ✔";
+                contactForm.reset();
+            })
+            .catch(() => {
+                if (button) button.textContent = "Something went wrong";
+            })
+            .finally(() => {
+                setTimeout(() => {
+                    if (button) {
+                        button.disabled = false;
+                        button.textContent = "Send Message";
+                    }
+                }, 3000);
+            });
     });
 }
