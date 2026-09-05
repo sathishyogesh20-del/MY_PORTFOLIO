@@ -1,0 +1,19 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.swp
+
+# Local environment files (if you ever add server-side tooling)
+.env
+.env.local
+
+# Node (only relevant if you add any build tooling later)
+node_modules/
+npm-debug.log
+
+# Logs
+*.log
