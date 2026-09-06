@@ -134,11 +134,26 @@ if ("IntersectionObserver" in window) {
     });
 }
 
-/* Header scroll state */
+/* Header scroll state: background on scroll, fade out going down, fade in going up */
+let lastScrollY = window.scrollY;
+
 window.addEventListener("scroll", () => {
+    const currentScrollY = window.scrollY;
+
     if (header) {
-        header.classList.toggle("scrolled", window.scrollY > 80);
+        header.classList.toggle("scrolled", currentScrollY > 80);
+
+        const scrollingDown = currentScrollY > lastScrollY;
+        const pastNavHeight = currentScrollY > 160;
+
+        if (scrollingDown && pastNavHeight) {
+            header.classList.add("nav-hidden");
+        } else {
+            header.classList.remove("nav-hidden");
+        }
     }
+
+    lastScrollY = currentScrollY;
 }, { passive: true });
 
 /* Typing animation */
