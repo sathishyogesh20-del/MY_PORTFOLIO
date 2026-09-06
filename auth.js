@@ -14,10 +14,18 @@ const firebaseConfig = {
     appId: "1:389561066374:web:3572b1c6e5eff95ffd8207"
 };
 
-firebase.initializeApp(firebaseConfig);
+// Authentication is optional for the public portfolio. If Firebase is unavailable,
+// keep the rest of the site usable instead of stopping page initialization.
+if (!window.firebase) {
+    console.warn("Firebase Authentication is unavailable; contact sign-in is disabled.");
+    window.isUserAuthenticated = () => false;
+    window.getCurrentUser = () => null;
+} else {
+    firebase.initializeApp(firebaseConfig);
+}
 
-const auth = firebase.auth();
-const googleProvider = new firebase.auth.GoogleAuthProvider();
+const auth = window.firebase ? firebase.auth() : null;
+const googleProvider = auth ? new firebase.auth.GoogleAuthProvider() : null;
 
 let currentUser = null;
 let pendingActionCallback = null;
@@ -134,7 +142,7 @@ function handleUserSignedOut() {
 }
 
 // Observe Firebase Auth state
-auth.onAuthStateChanged((user) => {
+if (auth) auth.onAuthStateChanged((user) => {
     if (user) {
         handleUserSignedIn(user);
     } else {
@@ -145,6 +153,14 @@ auth.onAuthStateChanged((user) => {
 // Sign-In button click
 if (signInBtn) {
     signInBtn.addEventListener("click", () => {
+        if (!auth || !googleProvider) {
+            if (authError) {
+                authError.hidden = false;
+                authError.textContent = "Google sign-in is temporarily unavailable. Please email Yogesh directly.";
+            }
+            return;
+        }
+
         signInBtn.disabled = true;
         signInBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Signing in...';
         if (authError) authError.hidden = true;
@@ -168,6 +184,11 @@ if (signInBtn) {
 
 // Sign-Out handlers
 function doSignOut() {
+    if (!auth) {
+        handleUserSignedOut();
+        return;
+    }
+
     auth.signOut().then(() => {
         handleUserSignedOut();
     });
