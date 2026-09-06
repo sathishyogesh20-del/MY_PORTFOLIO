@@ -1,3 +1,6 @@
+// Mark JavaScript as available without making the page depend on it.
+document.documentElement.classList.add("js-enabled");
+
 const sections = document.querySelectorAll("section");
 const navLinks = document.querySelectorAll(".nav-links a");
 const header = document.querySelector("header");
