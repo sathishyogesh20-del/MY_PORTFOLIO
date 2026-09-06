@@ -706,11 +706,42 @@
 
     <!-- Floating "Ask Yogesh AI" Chatbot Widget -->
     <div id="chatbot-widget" class="chatbot-widget">
-        <!-- Floating Toggle Button -->
-        <button type="button" id="chatbot-toggle" class="chatbot-toggle" aria-expanded="false" aria-controls="chatbot-window" aria-label="Chat with Yogesh AI Assistant">
-            <span class="bot-badge">AI</span>
-            <i class="fa-solid fa-robot" aria-hidden="true"></i>
+        <!-- Floating Toggle Button: Codex, the COSMOS companion pet -->
+        <button type="button" id="chatbot-toggle" class="chatbot-toggle" aria-expanded="false" aria-controls="chatbot-window" aria-label="Chat with Codex, Yogesh's AI companion">
             <span class="bot-ping-ring"></span>
+            <svg class="codex-pet" viewBox="0 0 64 64" aria-hidden="true">
+                <defs>
+                    <linearGradient id="codexBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="var(--primary)"></stop>
+                        <stop offset="100%" stop-color="var(--secondary)"></stop>
+                    </linearGradient>
+                </defs>
+
+                <!-- antenna -->
+                <line class="codex-antenna" x1="32" y1="12" x2="32" y2="3" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"></line>
+                <circle class="codex-antenna-tip" cx="32" cy="3" r="3"></circle>
+
+                <!-- ear fins -->
+                <path class="codex-fin codex-fin-left" d="M10 30 Q1 27 5 39 Q10 42 15 34 Z"></path>
+                <path class="codex-fin codex-fin-right" d="M54 30 Q63 27 59 39 Q54 42 49 34 Z"></path>
+
+                <!-- body -->
+                <ellipse class="codex-body" cx="32" cy="38" rx="21" ry="19" fill="url(#codexBodyGrad)"></ellipse>
+
+                <!-- face plate -->
+                <ellipse cx="32" cy="40" rx="14" ry="12" fill="rgba(11,8,22,.55)"></ellipse>
+
+                <!-- eyes -->
+                <g class="codex-eyes">
+                    <circle class="codex-eye" cx="26" cy="39" r="3.6" fill="#fff"></circle>
+                    <circle class="codex-eye" cx="38" cy="39" r="3.6" fill="#fff"></circle>
+                    <circle cx="26" cy="39" r="1.5" fill="#120d25"></circle>
+                    <circle cx="38" cy="39" r="1.5" fill="#120d25"></circle>
+                </g>
+
+                <!-- smile -->
+                <path class="codex-smile" d="M27 46 Q32 50 37 46" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"></path>
+            </svg>
         </button>
 
         <!-- Chat Window -->
