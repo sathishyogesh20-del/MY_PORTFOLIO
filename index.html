@@ -40,12 +40,15 @@
     <meta name="twitter:image:alt" content="Portrait of Sathish Yogesh, AI Developer and COSMOS Creator">
 
     <!-- Preload Hero LCP Image for Core Web Vitals -->
-    <link rel="preload" as="image" href="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/ae7e4c70-a22f-4014-80ed-903dc4bb7682.jpg" fetchpriority="high">
+    <link rel="preload" as="image"
+        href="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/ae7e4c70-a22f-4014-80ed-903dc4bb7682.jpg"
+        fetchpriority="high">
 
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 
@@ -155,10 +158,16 @@
 <body>
     <div id="particles" aria-hidden="true"></div>
 
-    <div id="auth-gate" class="auth-gate">
-        <div class="auth-gate-inner">
+    <!-- Auth Modal (only triggered when visitor interacts with or submits the contact form) -->
+    <div id="auth-modal" class="auth-modal" hidden role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+        <div class="auth-modal-overlay" id="auth-modal-overlay"></div>
+        <div class="auth-modal-card">
+            <button type="button" id="auth-modal-close" class="modal-close-btn" aria-label="Close sign-in modal">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
             <div class="auth-logo">YOGESH</div>
-            <p>Sign in with Google to view this portfolio.</p>
+            <h3 id="auth-modal-title">Sign in with Google</h3>
+            <p id="auth-modal-desc">Please sign in with your Google account to send a message directly to Yogesh.</p>
             <button type="button" id="google-signin-btn" class="btn auth-signin-btn">
                 <i class="fa-brands fa-google" aria-hidden="true"></i>
                 Sign in with Google
@@ -167,279 +176,588 @@
         </div>
     </div>
 
-    <div id="site-content" hidden>
-    <header>
-        <nav aria-label="Primary navigation">
-            <a href="#home" class="logo" aria-label="Yogesh home">YOGESH</a>
+    <!-- Main Public Site Content (always visible) -->
+    <div id="site-content">
+        <header>
+            <nav aria-label="Primary navigation">
+                <a href="#home" class="logo" aria-label="Yogesh home">YOGESH</a>
 
-            <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="nav-links"
-                aria-label="Open menu">
-                <i class="fa-solid fa-bars" aria-hidden="true"></i>
+                <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="nav-links"
+                    aria-label="Open menu">
+                    <i class="fa-solid fa-bars" aria-hidden="true"></i>
+                </button>
+
+                <ul id="nav-links" class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#achievements">Achievements</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+
+                <div id="user-badge" class="user-badge" hidden>
+                    <img id="user-avatar" class="user-avatar" alt="" referrerpolicy="no-referrer">
+                    <span id="user-name"></span>
+                    <button type="button" id="signout-btn" class="signout-btn">Sign Out</button>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <section id="home" class="hero" aria-labelledby="home-title">
+                <div class="hero-left">
+                    <div class="hero-badge">
+                        <i class="fa-solid fa-sparkles" aria-hidden="true"></i>
+                        <span>AI Developer & Student Innovator</span>
+                    </div>
+                    <h1 id="home-title">Hi, I'm <span>Yogesh</span></h1>
+                    <h2>AI Developer</h2>
+                    <p>
+                        Creator of the <b>COSMOS Ecosystem</b>. Building intelligent web apps,
+                        automation tools, and futuristic technologies from Madurai, India.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#projects" class="btn">
+                            <i class="fa-solid fa-rocket" aria-hidden="true"></i> Explore Projects
+                        </a>
+                        <a href="#contact" class="btn btn-secondary">
+                            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Contact Me
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-right">
+                    <div class="hero-image-frame">
+                        <img src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/ae7e4c70-a22f-4014-80ed-903dc4bb7682.jpg"
+                            alt="Portrait of Yogesh, an AI developer from Madurai" width="380" height="380"
+                            fetchpriority="high">
+                        <div class="hero-floating-tag">
+                            <i class="fa-solid fa-brain" aria-hidden="true"></i>
+                            <span>COSMOS Creator</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Stats Highlight Bar -->
+            <section class="stats-section" aria-label="Key Highlights">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">6+</span>
+                        <span class="stat-label">AI Certifications</span>
+                        <span class="stat-sub">Google, OpenAI, Claude</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">7+</span>
+                        <span class="stat-label">COSMOS Projects</span>
+                        <span class="stat-sub">Web apps & hardware</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">1</span>
+                        <span class="stat-label">Published E-Book</span>
+                        <span class="stat-sub">Code the Cosmos</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">9th</span>
+                        <span class="stat-label">Grade Innovator</span>
+                        <span class="stat-sub">Madurai, Tamil Nadu</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" aria-labelledby="about-title">
+                <h2 id="about-title">About Yogesh</h2>
+                <div class="card about-card">
+                    <p>
+                        Hello! I'm <b>Yogesh</b>, a passionate student from Madurai, Tamil Nadu.
+                        Currently studying in the 9th Standard at
+                        <b>Seventh Day Adventist English Higher Secondary School.</b>
+                        I enjoy creating futuristic AI products, websites, mobile apps,
+                        automation tools, and intelligent systems. I am the solo developer
+                        of the <b>COSMOS Ecosystem</b>, an ambitious AI platform designed
+                        to bring together multiple intelligent services.
+                    </p>
+                </div>
+            </section>
+
+            <section id="skills" aria-labelledby="skills-title">
+                <h2 id="skills-title">AI Development Skills</h2>
+
+                <div class="skills-grid">
+                    <div class="skill">
+                        <i class="fa-solid fa-brain" aria-hidden="true"></i>
+                        <h3>Artificial Intelligence</h3>
+                    </div>
+                    <div class="skill">
+                        <i class="fa-solid fa-code" aria-hidden="true"></i>
+                        <h3>Web Development</h3>
+                    </div>
+                    <div class="skill">
+                        <i class="fa-solid fa-mobile-screen" aria-hidden="true"></i>
+                        <h3>App Development</h3>
+                    </div>
+                    <div class="skill">
+                        <i class="fa-brands fa-python" aria-hidden="true"></i>
+                        <h3>Python Programming</h3>
+                    </div>
+                    <div class="skill">
+                        <i class="fa-solid fa-microphone" aria-hidden="true"></i>
+                        <h3>Spoken English</h3>
+                    </div>
+                    <div class="skill">
+                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                        <h3>Research Analyst</h3>
+                    </div>
+                    <div class="skill">
+                        <i class="fa-solid fa-robot" aria-hidden="true"></i>
+                        <h3>AI Developer</h3>
+                    </div>
+                    <div class="skill">
+                        <i class="fa-solid fa-lightbulb" aria-hidden="true"></i>
+                        <h3>Prompt Engineering</h3>
+                    </div>
+                </div>
+            </section>
+
+            <section id="achievements" aria-labelledby="achievements-title">
+                <h2 id="achievements-title">AI Certifications and Achievements</h2>
+
+                <div class="card">
+                    <p>
+                        Certified by Google for passing the Gemini for Students exams
+                        in both Student and Educator categories, alongside verified certifications from
+                        Anthropic, OpenAI, and Simplilearn. Click any certificate to inspect its details.
+                    </p>
+                </div>
+
+                <div class="achievements-grid" style="margin-top: 35px;">
+                    <div class="project-card achievement-card cert-card-trigger"
+                        data-cert-title="Google Gemini AI for Students"
+                        data-cert-issuer="Google"
+                        data-cert-desc="Achieved official certification from Google for Gemini AI mastery and student applications."
+                        data-cert-img="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI_CERTIFICATE.png"
+                        role="button" tabindex="0" aria-label="View Google Gemini AI for Students certificate">
+                        <div class="cert-image-container">
+                            <img class="achievement-image"
+                                src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI_CERTIFICATE.png"
+                                alt="Google Gemini AI for Students certificate earned by Yogesh" loading="lazy" width="400"
+                                height="210">
+                            <span class="cert-badge google-badge"><i class="fa-brands fa-google"></i> Google</span>
+                            <span class="cert-zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> Click to Zoom</span>
+                        </div>
+                        <h3>Gemini AI for Students</h3>
+                        <p>Google Gemini AI for Students certificate.</p>
+                    </div>
+
+                    <div class="project-card achievement-card cert-card-trigger"
+                        data-cert-title="Gemini AI for Students (University Category)"
+                        data-cert-issuer="Google"
+                        data-cert-desc="Earned Google Gemini Certification in the competitive University Category for advanced generative AI comprehension."
+                        data-cert-img="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI%20CERTFIFCATIONS%20FOR%20STUDENTS%20(UNIVERSITY).png"
+                        role="button" tabindex="0" aria-label="View Google Gemini AI University Category certificate">
+                        <div class="cert-image-container">
+                            <img class="achievement-image"
+                                src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI%20CERTFIFCATIONS%20FOR%20STUDENTS%20(UNIVERSITY).png"
+                                alt="Google Gemini AI University Category certification earned by Sathish Yogesh"
+                                loading="lazy" width="400" height="210">
+                            <span class="cert-badge google-badge"><i class="fa-brands fa-google"></i> Google</span>
+                            <span class="cert-zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> Click to Zoom</span>
+                        </div>
+                        <h3>Gemini AI for Students (University)</h3>
+                        <p>Google Gemini University category certificate.</p>
+                    </div>
+
+                    <div class="project-card achievement-card cert-card-trigger"
+                        data-cert-title="Gemini Certification for Educator"
+                        data-cert-issuer="Google"
+                        data-cert-desc="Credential recognized by Google for leveraging Gemini AI tools to instruct, structure, and educate."
+                        data-cert-img="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI%20CERTFICATION%20FOR%20EDUCATOR.png"
+                        role="button" tabindex="0" aria-label="View Gemini for Educator certificate">
+                        <div class="cert-image-container">
+                            <img class="achievement-image"
+                                src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI%20CERTFICATION%20FOR%20EDUCATOR.png"
+                                alt="Google Gemini for Educator AI certification" loading="lazy" width="400" height="210">
+                            <span class="cert-badge google-badge"><i class="fa-brands fa-google"></i> Google</span>
+                            <span class="cert-zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> Click to Zoom</span>
+                        </div>
+                        <h3>Gemini for Educator</h3>
+                        <p>Google Gemini Educator certification.</p>
+                    </div>
+
+                    <div class="project-card achievement-card cert-card-trigger"
+                        data-cert-title="OpenAI ChatGPT Certificate"
+                        data-cert-issuer="OpenAI"
+                        data-cert-desc="OpenAI certificate demonstrating proficiency with prompt engineering, LLM architecture, and generative text capabilities."
+                        data-cert-img="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/OPENAI%20CERTIFICATE.jpg"
+                        role="button" tabindex="0" aria-label="View OpenAI ChatGPT certificate">
+                        <div class="cert-image-container">
+                            <img class="achievement-image"
+                                src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/OPENAI%20CERTIFICATE.jpg"
+                                alt="OpenAI ChatGPT prompt engineering and AI certificate earned by Yogesh" loading="lazy"
+                                width="400" height="210">
+                            <span class="cert-badge openai-badge"><i class="fa-solid fa-bolt"></i> OpenAI</span>
+                            <span class="cert-zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> Click to Zoom</span>
+                        </div>
+                        <h3>OpenAI ChatGPT Certificate</h3>
+                        <p>Prompt engineering & ChatGPT proficiency.</p>
+                    </div>
+
+                    <div class="project-card achievement-card cert-card-trigger"
+                        data-cert-title="Anthropic Claude AI Fluency for Students"
+                        data-cert-issuer="Anthropic"
+                        data-cert-desc="Certified in Anthropic Claude AI fluency for student research, structured prompt workflows, and ethical AI development."
+                        data-cert-img="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/CLAUDE%20CERTIFICATE%20(%20AI%20FLUENCY%20FOR%20STUDENTS.).png"
+                        role="button" tabindex="0" aria-label="View Anthropic Claude AI certificate">
+                        <div class="cert-image-container">
+                            <img class="achievement-image"
+                                src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/CLAUDE%20CERTIFICATE%20(%20AI%20FLUENCY%20FOR%20STUDENTS.).png"
+                                alt="Anthropic Claude AI Fluency for Students certification earned by Yogesh" loading="lazy"
+                                width="400" height="210">
+                            <span class="cert-badge anthropic-badge"><i class="fa-solid fa-shield-cat"></i> Anthropic</span>
+                            <span class="cert-zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> Click to Zoom</span>
+                        </div>
+                        <h3>Anthropic Claude AI Certificate</h3>
+                        <p>Anthropic Claude AI Fluency for Students.</p>
+                    </div>
+
+                    <div class="project-card achievement-card cert-card-trigger"
+                        data-cert-title="Simplilearn Google Cloud Certificate"
+                        data-cert-issuer="Simplilearn / Google Cloud"
+                        data-cert-desc="Fundamentals of Google Cloud infrastructure, cloud deployment models, and scalable computing."
+                        data-cert-img="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GOOGLE%20CLOUD.png"
+                        role="button" tabindex="0" aria-label="View Simplilearn Google Cloud certificate">
+                        <div class="cert-image-container">
+                            <img class="achievement-image"
+                                src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GOOGLE%20CLOUD.png"
+                                alt="Simplilearn Google Cloud computing fundamentals certificate" loading="lazy" width="400"
+                                height="210">
+                            <span class="cert-badge cloud-badge"><i class="fa-solid fa-cloud"></i> Google Cloud</span>
+                            <span class="cert-zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> Click to Zoom</span>
+                        </div>
+                        <h3>Simplilearn Google Cloud Certificate</h3>
+                        <p>Google Cloud computing fundamentals.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" aria-labelledby="projects-title">
+                <h2 id="projects-title">AI & Web Development Projects</h2>
+
+                <!-- Category Filter Tabs -->
+                <div class="project-filter-tabs" role="tablist" aria-label="Filter projects">
+                    <button type="button" class="filter-btn active" data-filter="all" role="tab" aria-selected="true">
+                        <i class="fa-solid fa-border-all" aria-hidden="true"></i> All Projects
+                    </button>
+                    <button type="button" class="filter-btn" data-filter="ai" role="tab" aria-selected="false">
+                        <i class="fa-solid fa-robot" aria-hidden="true"></i> AI Apps
+                    </button>
+                    <button type="button" class="filter-btn" data-filter="hardware" role="tab" aria-selected="false">
+                        <i class="fa-solid fa-microchip" aria-hidden="true"></i> Robotics & Hardware
+                    </button>
+                    <button type="button" class="filter-btn" data-filter="books" role="tab" aria-selected="false">
+                        <i class="fa-solid fa-book-open" aria-hidden="true"></i> E-Books
+                    </button>
+                </div>
+
+                <div class="projects-grid" id="projects-grid">
+                    <!-- cosmos-ai -->
+                    <div class="project-card rich-project-card" data-category="ai">
+                        <div class="project-card-header">
+                            <div class="project-icon-box ai-icon"><i class="fa-solid fa-brain"></i></div>
+                            <span class="project-badge">AI Assistant</span>
+                        </div>
+                        <h3>cosmos-ai</h3>
+                        <p>Interactive intelligent conversational AI application under the COSMOS banner.</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Gemini API</span>
+                            <span class="tech-tag">Lovable</span>
+                            <span class="tech-tag">Full-Stack</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://yogeshcosmos20.lovable.app" class="btn btn-sm" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Open App
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- cosmos-129 -->
+                    <div class="project-card rich-project-card" data-category="ai">
+                        <div class="project-card-header">
+                            <div class="project-icon-box ai-icon"><i class="fa-solid fa-sparkles"></i></div>
+                            <span class="project-badge">Next-Gen App</span>
+                        </div>
+                        <h3>cosmos-129</h3>
+                        <p>Advanced iteration of the COSMOS platform with integrated AI intelligence and sleek UI.</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Web AI</span>
+                            <span class="tech-tag">Lovable</span>
+                            <span class="tech-tag">UI/UX</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://yogeshcosmos.lovable.app" class="btn btn-sm" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Open App
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- cosmos-hand -->
+                    <div class="project-card rich-project-card" data-category="hardware">
+                        <div class="project-card-header">
+                            <div class="project-icon-box hardware-icon"><i class="fa-solid fa-hand"></i></div>
+                            <span class="project-badge">Robotics / Vision</span>
+                        </div>
+                        <h3>cosmos-hand</h3>
+                        <p>Computer vision hand-tracking and gesture recognition system interfacing with hardware.</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Computer Vision</span>
+                            <span class="tech-tag">Gesture Control</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://sathishyogesh20-del.github.io/cosmos-hand/" class="btn btn-sm" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-solid fa-play"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- cosmos-controller -->
+                    <div class="project-card rich-project-card" data-category="hardware">
+                        <div class="project-card-header">
+                            <div class="project-icon-box hardware-icon"><i class="fa-solid fa-gamepad"></i></div>
+                            <span class="project-badge">Hardware Control</span>
+                        </div>
+                        <h3>cosmos-controller</h3>
+                        <p>Web-based controller interface for managing automated devices and COSMOS modules.</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Web Controller</span>
+                            <span class="tech-tag">Automation</span>
+                            <span class="tech-tag">IoT</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://sathishyogesh20-del.github.io/cosmos-controller/" class="btn btn-sm" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-solid fa-play"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Code the Cosmos E-book -->
+                    <div class="project-card rich-project-card" data-category="books">
+                        <div class="project-card-header">
+                            <div class="project-icon-box book-icon"><i class="fa-solid fa-book-open"></i></div>
+                            <span class="project-badge">Publication</span>
+                        </div>
+                        <h3>Code the Cosmos E-book</h3>
+                        <p>Interactive 3D flip-book guide exploring programming, AI concepts, and cosmos architecture.</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">E-Book</span>
+                            <span class="tech-tag">Heyzine 3D</span>
+                            <span class="tech-tag">Education</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://heyzine.com/flip-book/9df7afbf55.html" class="btn btn-sm" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-solid fa-book-reader"></i> Read Flip-Book
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- cosmos-128.v1 -->
+                    <div class="project-card rich-project-card" data-category="ai">
+                        <div class="project-card-header">
+                            <div class="project-icon-box web-icon"><i class="fa-solid fa-globe"></i></div>
+                            <span class="project-badge">Web Portal</span>
+                        </div>
+                        <h3>cosmos-128.v1</h3>
+                        <p>First web platform deployment introducing the COSMOS ecosystem and its multi-tier services.</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Web Design</span>
+                            <span class="tech-tag">Wix</span>
+                            <span class="tech-tag">COSMOS v1</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://sathishyogesh20.wixsite.com/cosmos" class="btn btn-sm" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Site
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- cosmos.128 -->
+                    <div class="project-card rich-project-card" data-category="ai">
+                        <div class="project-card-header">
+                            <div class="project-icon-box web-icon"><i class="fa-solid fa-newspaper"></i></div>
+                            <span class="project-badge">Knowledge Hub</span>
+                        </div>
+                        <h3>cosmos.128</h3>
+                        <p>Official blog and knowledge hub documenting development logs, AI research, and updates.</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Documentation</span>
+                            <span class="tech-tag">WordPress</span>
+                            <span class="tech-tag">AI Articles</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://cosmos128.wordpress.com/" class="btn btn-sm" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Site
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align:center; margin-top:40px;">
+                    <a href="https://github.com/sathishyogesh20-del" class="btn" target="_blank"
+                        rel="noopener noreferrer" aria-label="Visit Yogesh's GitHub profile">
+                        <i class="fa-brands fa-github" aria-hidden="true"></i>
+                        Visit My GitHub
+                    </a>
+                </div>
+            </section>
+
+            <section id="contact" aria-labelledby="contact-title">
+                <h2 id="contact-title">Contact Yogesh</h2>
+
+                <div class="contact-container">
+                    <p class="contact-intro">
+                        Have a project idea, question, or collaboration opportunity?
+                        Send a message using the verified contact form below.
+                    </p>
+
+                    <!-- Auth status banner above contact form -->
+                    <div id="contact-auth-banner" class="contact-auth-banner">
+                        <div id="contact-signed-in" class="contact-user-info" hidden>
+                            <img id="contact-user-avatar" class="user-avatar" alt="" referrerpolicy="no-referrer">
+                            <span>Signed in as <b id="contact-user-name">Verified User</b></span>
+                            <button type="button" id="contact-signout-btn" class="signout-link">Sign Out</button>
+                        </div>
+                        <div id="contact-signed-out" class="contact-guest-prompt">
+                            <div class="prompt-text">
+                                <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                                <span>Sign in with Google to send a verified message directly to Yogesh:</span>
+                            </div>
+                            <button type="button" id="contact-signin-trigger" class="btn auth-signin-btn-sm">
+                                <i class="fa-brands fa-google" aria-hidden="true"></i> Sign in with Google
+                            </button>
+                        </div>
+                    </div>
+
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="first-name">First Name</label>
+                            <input type="text" id="first-name" name="first_name" placeholder="Enter your first name"
+                                autocomplete="given-name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" id="last-name" name="last_name" placeholder="Enter your last name"
+                                autocomplete="family-name" required>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email address"
+                                autocomplete="email" required>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Write your message here..."
+                                required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn submit-btn" id="contactSubmitBtn">
+                            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send Message
+                        </button>
+                    </form>
+
+                    <p class="contact-email">
+                        Or email me directly at
+                        <a href="mailto:sathishyogesh20@gmail.com">sathishyogesh20@gmail.com</a>
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <footer style="text-align:center; padding:30px 20px; color:var(--muted);">
+            <p>&copy; 2026 Sathish Yogesh. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Certificate Lightbox Modal Dialog -->
+    <div id="cert-lightbox" class="cert-lightbox" hidden role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
+        <div class="lightbox-overlay" id="lightbox-overlay"></div>
+        <div class="lightbox-content">
+            <button type="button" id="lightbox-close" class="lightbox-close-btn" aria-label="Close certificate preview">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
             </button>
-
-            <ul id="nav-links" class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#achievements">Achievements</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-
-            <div id="user-badge" class="user-badge" hidden>
-                <img id="user-avatar" class="user-avatar" alt="" referrerpolicy="no-referrer">
-                <span id="user-name"></span>
-                <button type="button" id="signout-btn" class="signout-btn">Sign Out</button>
+            <div class="lightbox-image-wrapper">
+                <img id="lightbox-img" src="" alt="Certificate preview">
             </div>
-        </nav>
-    </header>
-
-    <main>
-        <section id="home" class="hero" aria-labelledby="home-title">
-            <div class="hero-left">
-                <h1 id="home-title">Hi, I'm <span>Yogesh</span></h1>
-                <h2>AI Developer</h2>
-                <p>
-                    Creator of the COSMOS Ecosystem. Building AI-powered applications,
-                    websites, and futuristic technologies.
-                </p>
-                <a href="#contact" class="btn">Contact Me</a>
-            </div>
-
-            <div class="hero-right">
-                <img src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/ae7e4c70-a22f-4014-80ed-903dc4bb7682.jpg"
-                    alt="Portrait of Yogesh, an AI developer from Madurai" width="380" height="380"
-                    fetchpriority="high">
-            </div>
-        </section>
-
-        <section id="about" aria-labelledby="about-title">
-            <h2 id="about-title">About Yogesh</h2>
-            <div class="card">
-                <p>
-                    Hello! I'm <b>Yogesh</b>, a passionate student from Madurai, Tamil Nadu.
-                    Currently studying in the 9th Standard at
-                    <b>Seventh Day Adventist English Higher Secondary School.</b>
-                    I enjoy creating futuristic AI products, websites, mobile apps,
-                    automation tools, and intelligent systems. I am the solo developer
-                    of the <b>COSMOS Ecosystem</b>, an ambitious AI platform designed
-                    to bring together multiple intelligent services.
-                </p>
-            </div>
-        </section>
-
-        <section id="skills" aria-labelledby="skills-title">
-            <h2 id="skills-title">AI Development Skills</h2>
-
-            <div class="skills-grid">
-                <div class="skill">
-                    <i class="fa-solid fa-brain" aria-hidden="true"></i>
-                    <h3>Artificial Intelligence</h3>
-                </div>
-                <div class="skill">
-                    <i class="fa-solid fa-code" aria-hidden="true"></i>
-                    <h3>Web Development</h3>
-                </div>
-                <div class="skill">
-                    <i class="fa-solid fa-mobile-screen" aria-hidden="true"></i>
-                    <h3>App Development</h3>
-                </div>
-                <div class="skill">
-                    <i class="fa-brands fa-python" aria-hidden="true"></i>
-                    <h3>Python Programming</h3>
-                </div>
-                <div class="skill">
-                    <i class="fa-solid fa-microphone" aria-hidden="true"></i>
-                    <h3>Spoken English</h3>
-                </div>
-                <div class="skill">
-                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-                    <h3>Research Analyst</h3>
-                </div>
-                <div class="skill">
-                    <i class="fa-solid fa-robot" aria-hidden="true"></i>
-                    <h3>AI Developer</h3>
-                </div>
-                <div class="skill">
-                    <i class="fa-solid fa-lightbulb" aria-hidden="true"></i>
-                    <h3>Prompt Engineering</h3>
+            <div class="lightbox-details">
+                <span id="lightbox-issuer" class="cert-badge google-badge"></span>
+                <h3 id="lightbox-title">Certificate Title</h3>
+                <p id="lightbox-desc">Certificate Description</p>
+                <div class="lightbox-actions">
+                    <a id="lightbox-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+                        <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Open Full High-Res
+                    </a>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
 
-        <section id="achievements" aria-labelledby="achievements-title">
-            <h2 id="achievements-title">AI Certifications and Achievements</h2>
+    <!-- Floating "Ask Yogesh AI" Chatbot Widget -->
+    <div id="chatbot-widget" class="chatbot-widget">
+        <!-- Floating Toggle Button -->
+        <button type="button" id="chatbot-toggle" class="chatbot-toggle" aria-expanded="false" aria-controls="chatbot-window" aria-label="Chat with Yogesh AI Assistant">
+            <span class="bot-badge">AI</span>
+            <i class="fa-solid fa-robot" aria-hidden="true"></i>
+            <span class="bot-ping-ring"></span>
+        </button>
 
-            <div class="card">
-                <p>
-                    I got certified by Google for attaining their Gemini for Students exam
-                    in the University category, and I also received certifications from
-                    Anthropic, OpenAI, and Simplilearn. I have also registered for upcoming courses.
-                </p>
-            </div>
-
-            <div class="projects-grid" style="margin-top: 35px;">
-                <a href="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI_CERTIFICATE.png"
-                    class="project-card achievement-card" target="_blank" rel="noopener noreferrer">
-                    <img class="achievement-image"
-                        src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI_CERTIFICATE.png"
-                        alt="Google Gemini AI for Students certificate earned by Yogesh" loading="lazy" width="400" height="210">
-                    <h3>Gemini AI for Students</h3>
-                    <p>View the Google Gemini AI for Students certificate.</p>
-                </a>
-
-                <a href="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI%20CERTFIFCATIONS%20FOR%20STUDENTS%20(UNIVERSITY).png"
-                    class="project-card achievement-card" target="_blank" rel="noopener noreferrer">
-                    <img class="achievement-image"
-                        src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI%20CERTFIFCATIONS%20FOR%20STUDENTS%20(UNIVERSITY).png"
-                        alt="Google Gemini AI University Category certification earned by Sathish Yogesh" loading="lazy" width="400" height="210">
-                    <h3>Gemini AI for Students University Certificate</h3>
-                    <p>View the Google Gemini University category certificate.</p>
-                </a>
-
-                <a href="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI%20CERTFICATION%20FOR%20EDUCATOR.png"
-                    class="project-card achievement-card" target="_blank" rel="noopener noreferrer">
-                    <img class="achievement-image"
-                        src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI%20CERTFICATION%20FOR%20EDUCATOR.png"
-                        alt="Google Gemini for Educator AI certification" loading="lazy" width="400" height="210">
-                    <h3>Gemini for Educator</h3>
-                    <p>View the Gemini for Educator certificate.</p>
-                </a>
-
-                <a href="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/OPENAI%20CERTIFICATE.jpg"
-                    class="project-card achievement-card" target="_blank" rel="noopener noreferrer">
-                    <img class="achievement-image"
-                        src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/OPENAI%20CERTIFICATE.jpg"
-                        alt="OpenAI ChatGPT prompt engineering and AI certificate earned by Yogesh" loading="lazy" width="400" height="210">
-                    <h3>OpenAI ChatGPT Certificate</h3>
-                    <p>View the OpenAI ChatGPT certificate.</p>
-                </a>
-
-                <a href="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/CLAUDE%20CERTIFICATE%20(%20AI%20FLUENCY%20FOR%20STUDENTS.).png"
-                    class="project-card achievement-card" target="_blank" rel="noopener noreferrer">
-                    <img class="achievement-image"
-                        src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/CLAUDE%20CERTIFICATE%20(%20AI%20FLUENCY%20FOR%20STUDENTS.).png"
-                        alt="Anthropic Claude AI Fluency for Students certification earned by Yogesh" loading="lazy" width="400"
-                        height="210">
-                    <h3>Anthropic Claude AI Certificate</h3>
-                    <p>View the Anthropic Claude AI certificate.</p>
-                </a>
-
-                <a href="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GOOGLE%20CLOUD.png"
-                    class="project-card achievement-card" target="_blank" rel="noopener noreferrer">
-                    <img class="achievement-image"
-                        src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GOOGLE%20CLOUD.png"
-                        alt="Simplilearn Google Cloud computing fundamentals certificate" loading="lazy" width="400" height="210">
-                    <h3>Simplilearn Google Cloud Certificate</h3>
-                    <p>View the Simplilearn Google Cloud certificate.</p>
-                </a>
-            </div>
-        </section>
-
-        <section id="projects" aria-labelledby="projects-title">
-            <h2 id="projects-title">AI and Web Development Projects</h2>
-
-            <div class="projects-grid">
-                <a href="https://cosmos128.wordpress.com/" class="project-card" target="_blank"
-                    rel="noopener noreferrer">
-                    <h3>cosmos.128</h3>
-                    <p>Visit the COSMOS 128 project website.</p>
-                </a>
-
-                <a href="https://sathishyogesh20.wixsite.com/cosmos" class="project-card" target="_blank"
-                    rel="noopener noreferrer">
-                    <h3>cosmos-128.v1</h3>
-                    <p>Explore the COSMOS 128 version one project.</p>
-                </a>
-
-                <a href="https://yogeshcosmos.lovable.app" class="project-card" target="_blank"
-                    rel="noopener noreferrer">
-                    <h3>cosmos-129</h3>
-                    <p>Open the COSMOS 129 AI application.</p>
-                </a>
-
-                <a href="https://yogeshcosmos20.lovable.app" class="project-card" target="_blank"
-                    rel="noopener noreferrer">
-                    <h3>cosmos-ai</h3>
-                    <p>Explore the COSMOS AI application.</p>
-                </a>
-
-                <a href="https://sathishyogesh20-del.github.io/cosmos-controller/" class="project-card" target="_blank"
-                    rel="noopener noreferrer">
-                    <h3>cosmos-controller</h3>
-                    <p>Open the COSMOS Controller project.</p>
-                </a>
-
-                <a href="https://heyzine.com/flip-book/9df7afbf55.html" class="project-card" target="_blank"
-                    rel="noopener noreferrer">
-                    <h3>Code the Cosmos E-book</h3>
-                    <p>Read the Code the Cosmos e-book.</p>
-                </a>
-
-                <a href="https://sathishyogesh20-del.github.io/cosmos-hand/" class="project-card" target="_blank"
-                    rel="noopener noreferrer">
-                    <h3>cosmos-hand</h3>
-                    <p>Open the COSMOS Hand project.</p>
-                </a>
-            </div>
-
-            <div style="text-align:center; margin-top:40px;">
-                <a href="https://github.com/sathishyogesh20-del" class="btn" target="_blank" rel="noopener noreferrer"
-                    aria-label="Visit Yogesh's GitHub profile">
-                    <i class="fa-brands fa-github" aria-hidden="true"></i>
-                    Visit My GitHub
-                </a>
-            </div>
-        </section>
-
-        <section id="contact" aria-labelledby="contact-title">
-            <h2 id="contact-title">Contact Yogesh</h2>
-
-            <div class="contact-container">
-                <p class="contact-intro">
-                    Have a project idea, question, or collaboration opportunity?
-                    Send a message using the contact form below.
-                </p>
-
-                <form class="contact-form" id="contactForm">
-                    <div class="form-group">
-                        <label for="first-name">First Name</label>
-                        <input type="text" id="first-name" name="first_name" placeholder="Enter your first name"
-                            autocomplete="given-name" required>
+        <!-- Chat Window -->
+        <div id="chatbot-window" class="chatbot-window" hidden role="region" aria-label="Yogesh AI Assistant Chat">
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <div class="chat-avatar">
+                        <i class="fa-solid fa-brain" aria-hidden="true"></i>
+                        <span class="online-indicator"></span>
                     </div>
-
-                    <div class="form-group">
-                        <label for="last-name">Last Name</label>
-                        <input type="text" id="last-name" name="last_name" placeholder="Enter your last name"
-                            autocomplete="family-name" required>
+                    <div>
+                        <h4>Yogesh AI Assistant</h4>
+                        <span class="chat-subtitle">Ask anything about Yogesh & COSMOS</span>
                     </div>
-
-                    <div class="form-group full-width">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" placeholder="Enter your email address"
-                            autocomplete="email" required>
-                    </div>
-
-                    <div class="form-group full-width">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" placeholder="Write your message here..."
-                            required></textarea>
-                    </div>
-
-                    <button type="submit" class="btn submit-btn">Send Message</button>
-                </form>
-
-                <p class="contact-email">
-                    Or email me directly at
-                    <a href="mailto:sathishyogesh20@gmail.com">sathishyogesh20@gmail.com</a>
-                </p>
+                </div>
+                <div class="chat-header-actions">
+                    <button type="button" id="chatbot-minimize" class="chat-action-btn" aria-label="Minimize chat">
+                        <i class="fa-solid fa-minus" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" id="chatbot-close" class="chat-action-btn" aria-label="Close chat">
+                        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                    </button>
+                </div>
             </div>
-        </section>
-    </main>
 
-    <footer style="text-align:center; padding:30px 20px; color:var(--muted);">
-        <p>&copy; 2026 Sathish Yogesh. All rights reserved.</p>
-    </footer>
+            <!-- Quick Questions Chips -->
+            <div class="chat-quick-prompts" aria-label="Suggested questions">
+                <button type="button" class="quick-chip" data-question="Who is Yogesh?">👋 Who is Yogesh?</button>
+                <button type="button" class="quick-chip" data-question="Show AI certifications">🏆 Certifications</button>
+                <button type="button" class="quick-chip" data-question="What is the COSMOS Ecosystem?">🌌 COSMOS</button>
+                <button type="button" class="quick-chip" data-question="Tell me about cosmos-hand">🤖 COSMOS Hand</button>
+                <button type="button" class="quick-chip" data-question="How can I contact Yogesh?">✉️ Contact Yogesh</button>
+            </div>
+
+            <!-- Messages Log -->
+            <div id="chat-messages" class="chat-messages" role="log" aria-live="polite">
+                <!-- Initial welcome message added by script.js -->
+            </div>
+
+            <!-- Input Bar -->
+            <form id="chat-form" class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Ask about projects, skills, COSMOS..." autocomplete="off" aria-label="Ask Yogesh AI a question" required>
+                <button type="submit" id="chat-send" aria-label="Send message">
+                    <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                </button>
+            </form>
+        </div>
     </div>
 
     <!-- Firebase (compat build, no bundler needed) -->
