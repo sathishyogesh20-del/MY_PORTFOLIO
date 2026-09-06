@@ -364,9 +364,16 @@ section {
     width: min(92%, var(--max-width));
     margin: auto;
     padding: 105px 0;
+    /* Keep content visible if JavaScript or a third-party script fails. */
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity .7s ease, transform .7s ease;
+}
+
+/* Enable reveal animations only after the page script has loaded. */
+html.js-enabled section:not(.hero):not(.show) {
     opacity: 0;
     transform: translateY(25px);
-    transition: opacity .7s ease, transform .7s ease;
 }
 
 section.hero,
@@ -1806,14 +1813,284 @@ body.modal-open {
     }
 
     .chatbot-widget {
-        bottom: 18px;
-        right: 18px;
+        right: max(18px, env(safe-area-inset-right));
+        bottom: max(18px, env(safe-area-inset-bottom));
     }
 
     .chatbot-window {
+        right: 0;
         bottom: 70px;
-        right: -10px;
-        width: 94vw;
-        height: 70vh;
+        width: min(94vw, 380px);
+        height: min(70vh, 540px);
+    }
+}
+
+/* Small-screen refinements */
+@media (max-width: 600px) {
+    body {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    nav {
+        width: min(94%, 520px);
+        gap: 10px;
+    }
+
+    .logo {
+        font-size: 1.05rem;
+        letter-spacing: 1.5px;
+    }
+
+    .nav-toggle,
+    .theme-toggle {
+        width: 40px;
+        height: 40px;
+    }
+
+    .nav-links {
+        right: 0;
+        left: 0;
+        padding: 12px;
+    }
+
+    .nav-links a {
+        padding: 12px 10px;
+    }
+
+    .user-badge {
+        gap: 6px;
+    }
+
+    .signout-btn {
+        padding: 7px 10px;
+        font-size: .72rem;
+    }
+
+    .hero-badge {
+        max-width: 100%;
+        justify-content: center;
+        padding: 7px 12px;
+        font-size: .75rem;
+        line-height: 1.35;
+        text-align: center;
+    }
+
+    .hero-left h2 {
+        font-size: 1.05rem;
+    }
+
+    .hero-left p {
+        font-size: .92rem;
+        line-height: 1.75;
+    }
+
+    .hero-actions {
+        width: 100%;
+        gap: 10px;
+    }
+
+    .hero-actions .btn {
+        flex: 1 1 145px;
+        min-width: 0;
+        padding: 12px 15px;
+        font-size: .78rem;
+    }
+
+    .hero-floating-tag {
+        right: 0;
+        bottom: 8px;
+        padding: 7px 11px;
+        font-size: .7rem;
+    }
+
+    .stats-section {
+        width: min(90%, 520px);
+        margin: 0 auto;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .stat-card {
+        min-width: 0;
+        padding: 18px 8px;
+        border-radius: 15px;
+    }
+
+    .stat-number {
+        font-size: 1.65rem;
+    }
+
+    .stat-label {
+        font-size: .78rem;
+        line-height: 1.3;
+    }
+
+    .stat-sub {
+        font-size: .68rem;
+        line-height: 1.35;
+    }
+
+    section h2 {
+        margin-bottom: 30px;
+        font-size: clamp(1.7rem, 8vw, 2.2rem);
+        line-height: 1.2;
+    }
+
+    .card,
+    .project-card,
+    .skill {
+        border-radius: 17px;
+    }
+
+    .achievements-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+    }
+
+    .achievement-image,
+    .cert-image-container img {
+        height: auto;
+        aspect-ratio: 400 / 210;
+    }
+
+    .cert-zoom-hint {
+        opacity: 1;
+        transform: none;
+    }
+
+    .project-filter-tabs {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        margin: 18px 0 25px;
+        padding: 2px 2px 10px;
+        overflow-x: auto;
+        scrollbar-width: thin;
+    }
+
+    .filter-btn {
+        flex: 0 0 auto;
+        padding: 9px 14px;
+        font-size: .76rem;
+    }
+
+    .project-card-header {
+        gap: 10px;
+    }
+
+    .project-badge {
+        text-align: right;
+    }
+
+    .project-actions .btn {
+        width: 100%;
+    }
+
+    .contact-auth-banner {
+        padding: 14px;
+    }
+
+    .contact-user-info,
+    .contact-guest-prompt {
+        align-items: flex-start;
+    }
+
+    .contact-guest-prompt {
+        flex-direction: column;
+    }
+
+    .prompt-text {
+        align-items: flex-start;
+        font-size: .8rem;
+        line-height: 1.5;
+    }
+
+    .auth-signin-btn-sm {
+        width: 100%;
+    }
+
+    .lightbox-content {
+        width: 100%;
+        max-height: calc(100dvh - 24px);
+        padding: 16px;
+        border-radius: 16px;
+    }
+
+    .lightbox-image-wrapper img {
+        max-height: 44dvh;
+    }
+
+    .lightbox-actions .btn {
+        width: 100%;
+    }
+
+    .chatbot-window {
+        right: 0;
+        width: min(calc(100vw - 24px), 380px);
+        height: min(72dvh, 540px);
+        border-radius: 18px;
+    }
+
+    .chat-header {
+        padding: 12px 14px;
+    }
+
+    .chat-header h4 {
+        font-size: .82rem;
+    }
+
+    .chat-subtitle {
+        display: block;
+        max-width: 175px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .chat-messages {
+        padding: 12px;
+    }
+
+    .chat-bubble {
+        font-size: .8rem;
+    }
+
+    footer {
+        padding: 24px 16px !important;
+        font-size: .78rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .hero-left h1 {
+        font-size: 2.05rem;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+        flex-basis: auto;
+    }
+
+    .hero-right img {
+        width: min(250px, 72vw);
+    }
+
+    .stats-grid {
+        gap: 8px;
+    }
+
+    .stat-card {
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+
+    .stat-label {
+        font-size: .72rem;
     }
 }
