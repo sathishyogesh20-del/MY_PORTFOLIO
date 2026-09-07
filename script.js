@@ -145,8 +145,9 @@ window.addEventListener("scroll", () => {
 
         const scrollingDown = currentScrollY > lastScrollY;
         const pastNavHeight = currentScrollY > 160;
+        const mobileMenuOpen = navList && navList.classList.contains("open");
 
-        if (scrollingDown && pastNavHeight) {
+        if (scrollingDown && pastNavHeight && !mobileMenuOpen) {
             header.classList.add("nav-hidden");
         } else {
             header.classList.remove("nav-hidden");
