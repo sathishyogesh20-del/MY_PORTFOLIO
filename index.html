@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
     <title>Yogesh | AI Developer, Python Learner & COSMOS Creator</title>
     <meta name="description"
@@ -708,8 +708,7 @@
     <div id="chatbot-widget" class="chatbot-widget">
         <!-- Floating Toggle Button: Codex, the COSMOS companion pet -->
         <button type="button" id="chatbot-toggle" class="chatbot-toggle" aria-expanded="false" aria-controls="chatbot-window" aria-label="Chat with Codex, Yogesh's AI companion">
-            <span class="bot-ping-ring"></span>
-            <svg class="codex-pet" viewBox="0 0 64 64" aria-hidden="true">
+            <svg class="codex-pet" viewBox="0 0 60 96" aria-hidden="true">
                 <defs>
                     <linearGradient id="codexBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" stop-color="var(--primary)"></stop>
@@ -717,32 +716,57 @@
                     </linearGradient>
                 </defs>
 
-                <!-- antenna -->
-                <line class="codex-antenna" x1="32" y1="12" x2="32" y2="3" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"></line>
-                <circle class="codex-antenna-tip" cx="32" cy="3" r="3"></circle>
+                <ellipse class="codex-thruster" cx="30" cy="91" rx="14" ry="3"></ellipse>
 
-                <!-- ear fins -->
-                <path class="codex-fin codex-fin-left" d="M10 30 Q1 27 5 39 Q10 42 15 34 Z"></path>
-                <path class="codex-fin codex-fin-right" d="M54 30 Q63 27 59 39 Q54 42 49 34 Z"></path>
+                <g class="codex-figure">
+                    <!-- legs -->
+                    <path class="codex-leg" d="M23 73 L21 85" stroke="url(#codexBodyGrad)" stroke-width="7" stroke-linecap="round" fill="none"></path>
+                    <path class="codex-leg" d="M37 73 L39 85" stroke="url(#codexBodyGrad)" stroke-width="7" stroke-linecap="round" fill="none"></path>
+                    <ellipse cx="20" cy="86" rx="5" ry="3" fill="var(--secondary)"></ellipse>
+                    <ellipse cx="40" cy="86" rx="5" ry="3" fill="var(--accent)"></ellipse>
 
-                <!-- body -->
-                <ellipse class="codex-body" cx="32" cy="38" rx="21" ry="19" fill="url(#codexBodyGrad)"></ellipse>
+                    <!-- arms -->
+                    <path class="codex-arm codex-arm-left" d="M14 47 Q3 55 7 65" stroke="url(#codexBodyGrad)" stroke-width="7" stroke-linecap="round" fill="none"></path>
+                    <path class="codex-arm codex-arm-right" d="M46 47 Q57 55 53 65" stroke="url(#codexBodyGrad)" stroke-width="7" stroke-linecap="round" fill="none"></path>
+                    <circle cx="7" cy="65" r="4" fill="var(--accent)"></circle>
+                    <circle cx="53" cy="65" r="4" fill="var(--secondary)"></circle>
 
-                <!-- face plate -->
-                <ellipse cx="32" cy="40" rx="14" ry="12" fill="rgba(11,8,22,.55)"></ellipse>
+                    <!-- torso -->
+                    <rect class="codex-torso" x="12" y="40" width="36" height="34" rx="16" fill="url(#codexBodyGrad)"></rect>
 
-                <!-- eyes -->
-                <g class="codex-eyes">
-                    <circle class="codex-eye" cx="26" cy="39" r="3.6" fill="#fff"></circle>
-                    <circle class="codex-eye" cx="38" cy="39" r="3.6" fill="#fff"></circle>
-                    <circle cx="26" cy="39" r="1.5" fill="#120d25"></circle>
-                    <circle cx="38" cy="39" r="1.5" fill="#120d25"></circle>
+                    <!-- chest emblem: a tiny orbiting COSMOS ring -->
+                    <circle cx="30" cy="55" r="4.5" fill="rgba(11,8,22,.55)"></circle>
+                    <ellipse class="codex-emblem-ring" cx="30" cy="55" rx="7.5" ry="3" fill="none" stroke="var(--accent)" stroke-width="1.2" transform="rotate(-18 30 55)"></ellipse>
+
+                    <!-- neck -->
+                    <rect x="26" y="33" width="8" height="8" rx="3" fill="url(#codexBodyGrad)"></rect>
+
+                    <!-- ear fins -->
+                    <path class="codex-fin codex-fin-left" d="M12 18 Q3 15 7 26 Q12 29 16 22 Z"></path>
+                    <path class="codex-fin codex-fin-right" d="M48 18 Q57 15 53 26 Q48 29 44 22 Z"></path>
+
+                    <!-- head -->
+                    <ellipse class="codex-body" cx="30" cy="22" rx="14" ry="13"></ellipse>
+                    <ellipse cx="30" cy="24" rx="9" ry="8" fill="rgba(11,8,22,.55)"></ellipse>
+
+                    <!-- eyes -->
+                    <g class="codex-eyes">
+                        <circle class="codex-eye" cx="26" cy="24" r="2.6" fill="#fff"></circle>
+                        <circle class="codex-eye" cx="34" cy="24" r="2.6" fill="#fff"></circle>
+                        <circle cx="26" cy="24" r="1.1" fill="#120d25"></circle>
+                        <circle cx="34" cy="24" r="1.1" fill="#120d25"></circle>
+                    </g>
+
+                    <!-- smile -->
+                    <path class="codex-smile" d="M26 30 Q30 33 34 30" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"></path>
+
+                    <!-- antenna -->
+                    <line class="codex-antenna" x1="30" y1="10" x2="30" y2="3" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"></line>
+                    <circle class="codex-antenna-tip" cx="30" cy="3" r="3"></circle>
                 </g>
-
-                <!-- smile -->
-                <path class="codex-smile" d="M27 46 Q32 50 37 46" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"></path>
             </svg>
         </button>
+
 
         <!-- Chat Window -->
         <div id="chatbot-window" class="chatbot-window" hidden role="region" aria-label="Yogesh AI Assistant Chat">
