@@ -39,6 +39,10 @@ if (navToggle && navList) {
     document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") closeNavMenu();
     });
+
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 900) closeNavMenu();
+    }, { passive: true });
 }
 
 /* Theme switcher */
@@ -105,7 +109,34 @@ function updateScrollProgress() {
     progressBar.style.width = `${progress}%`;
 }
 
-window.addEventListener("scroll", updateScrollProgress, { passive: true });
+let scrollTicking = false;
+
+function handleScroll() {
+    if (scrollTicking) return;
+    scrollTicking = true;
+
+    requestAnimationFrame(() => {
+        updateScrollProgress();
+
+        const currentScrollY = window.scrollY;
+        if (header) {
+            header.classList.toggle("scrolled", currentScrollY > 80);
+
+            const scrollingDown = currentScrollY > lastScrollY;
+            const pastNavHeight = currentScrollY > 160;
+            const mobileMenuOpen = navList && navList.classList.contains("open");
+
+            header.classList.toggle(
+                "nav-hidden",
+                scrollingDown && pastNavHeight && !mobileMenuOpen
+            );
+        }
+        lastScrollY = currentScrollY;
+        scrollTicking = false;
+    });
+}
+
+window.addEventListener("scroll", handleScroll, { passive: true });
 updateScrollProgress();
 
 /* Section reveal and active navigation */
@@ -134,28 +165,8 @@ if ("IntersectionObserver" in window) {
     });
 }
 
-/* Header scroll state: background on scroll, fade out going down, fade in going up */
+/* Header scroll state is batched with scroll-progress updates above. */
 let lastScrollY = window.scrollY;
-
-window.addEventListener("scroll", () => {
-    const currentScrollY = window.scrollY;
-
-    if (header) {
-        header.classList.toggle("scrolled", currentScrollY > 80);
-
-        const scrollingDown = currentScrollY > lastScrollY;
-        const pastNavHeight = currentScrollY > 160;
-        const mobileMenuOpen = navList && navList.classList.contains("open");
-
-        if (scrollingDown && pastNavHeight && !mobileMenuOpen) {
-            header.classList.add("nav-hidden");
-        } else {
-            header.classList.remove("nav-hidden");
-        }
-    }
-
-    lastScrollY = currentScrollY;
-}, { passive: true });
 
 /* Typing animation */
 const typingTexts = [
@@ -247,56 +258,145 @@ if (!prefersReducedMotion) {
 
     const ctx = canvas.getContext("2d", { alpha: true });
     let particles = [];
+    let shootingStars = [];
     let w, h;
 
+    let animationFrameId;
+    let canvasVisible = true;
+    let deviceScale = Math.min(window.devicePixelRatio || 1, 1.5);
+
     function resizeCanvas() {
-        w = canvas.width = window.innerWidth;
-        h = canvas.height = window.innerHeight;
+        deviceScale = Math.min(window.devicePixelRatio || 1, 1.5);
+        w = window.innerWidth;
+        h = window.innerHeight;
+        canvas.width = Math.floor(w * deviceScale);
+        canvas.height = Math.floor(h * deviceScale);
+        ctx.setTransform(deviceScale, 0, 0, deviceScale, 0, 0);
     }
+
     window.addEventListener("resize", resizeCanvas, { passive: true });
     resizeCanvas();
+
+    document.addEventListener("visibilitychange", () => {
+        canvasVisible = !document.hidden;
+        if (canvasVisible && !animationFrameId) animateMotion();
+    });
+
+    let pointerX = 0;
+    let pointerY = 0;
+    let pointerTargetX = 0;
+    let pointerTargetY = 0;
+
+    // Pointer parallax is desktop-only; touch scrolling should stay lightweight.
+    if (window.matchMedia("(pointer: fine)").matches) {
+        window.addEventListener("pointermove", (event) => {
+            pointerTargetX = (event.clientX / Math.max(w, 1) - 0.5) * 2;
+            pointerTargetY = (event.clientY / Math.max(h, 1) - 0.5) * 2;
+        }, { passive: true });
+    }
 
     class Particle {
         constructor() {
             this.x = Math.random() * w;
             this.y = Math.random() * h;
-            this.vx = (Math.random() - 0.5) * 0.6;
-            this.vy = (Math.random() - 0.5) * 0.6;
-            this.radius = Math.random() * 1.8 + 0.8;
+            this.depth = Math.random() * 0.85 + 0.15;
+            this.vx = (Math.random() - 0.5) * (0.12 + this.depth * 0.3);
+            this.vy = (Math.random() - 0.5) * (0.12 + this.depth * 0.3);
+            this.radius = Math.random() * (1.2 + this.depth) + 0.35;
+            this.phase = Math.random() * Math.PI * 2;
+            this.twinkleSpeed = Math.random() * 0.025 + 0.008;
+            this.color = Math.random() > 0.78 ? "84, 230, 194" : "228, 213, 255";
         }
+
         update() {
-            this.x += this.vx;
-            this.y += this.vy;
-            if (this.x < 0 || this.x > w) this.vx *= -1;
-            if (this.y < 0 || this.y > h) this.vy *= -1;
+            this.x += this.vx + pointerX * this.depth * 0.018;
+            this.y += this.vy + pointerY * this.depth * 0.012;
+            this.phase += this.twinkleSpeed;
+
+            if (this.x < -10) this.x = w + 10;
+            if (this.x > w + 10) this.x = -10;
+            if (this.y < -10) this.y = h + 10;
+            if (this.y > h + 10) this.y = -10;
         }
+
         draw() {
+            const pulse = 0.35 + (Math.sin(this.phase) + 1) * 0.28;
+            const alpha = pulse * (0.45 + this.depth * 0.55);
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = "#b388ff";
+            ctx.fillStyle = `rgba(${this.color}, ${alpha})`;
+            ctx.shadowBlur = this.depth > 0.7 ? 10 : 4;
+            ctx.shadowColor = this.color === "84, 230, 194" ? "#54e6c2" : "#b388ff";
             ctx.fill();
+            ctx.shadowBlur = 0;
         }
     }
 
     function createParticles() {
         particles = [];
-        const count = Math.min(70, Math.floor((w * h) / 18000));
+        const pixelArea = w * h;
+        const maxParticles = window.innerWidth < 600 ? 55 : 125;
+        const count = Math.min(maxParticles, Math.max(28, Math.floor(pixelArea / 11000)));
         for (let i = 0; i < count; i++) {
             particles.push(new Particle());
         }
     }
+
+    class ShootingStar {
+        constructor() {
+            this.reset(true);
+        }
+        reset(initial = false) {
+            this.x = Math.random() * w;
+            this.y = initial ? Math.random() * h : -20;
+            this.length = Math.random() * 70 + 45;
+            this.speed = Math.random() * 7 + 8;
+            this.opacity = 1;
+        }
+        update() {
+            this.x += this.speed;
+            this.y += this.speed * 0.45;
+            this.opacity -= 0.012;
+            if (this.x > w + this.length || this.y > h + this.length || this.opacity <= 0) {
+                this.reset();
+            }
+        }
+        draw() {
+            const gradient = ctx.createLinearGradient(
+                this.x, this.y,
+                this.x - this.length, this.y - this.length * 0.45
+            );
+            gradient.addColorStop(0, `rgba(255, 255, 255, ${this.opacity})`);
+            gradient.addColorStop(1, "rgba(179, 136, 255, 0)");
+            ctx.beginPath();
+            ctx.moveTo(this.x, this.y);
+            ctx.lineTo(this.x - this.length, this.y - this.length * 0.45);
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+        }
+    }
+
+    function createShootingStars() {
+        const count = window.innerWidth < 600 ? 1 : 2;
+        shootingStars = Array.from({ length: count }, () => new ShootingStar());
+    }
+
     createParticles();
+    createShootingStars();
     window.addEventListener("resize", createParticles, { passive: true });
+    window.addEventListener("resize", createShootingStars, { passive: true });
 
     function drawConnections() {
-        ctx.strokeStyle = "rgba(179,136,255,0.25)";
-        ctx.lineWidth = 0.8;
+        ctx.lineWidth = 0.7;
         for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
                 const dx = particles[i].x - particles[j].x;
                 const dy = particles[i].y - particles[j].y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 140) {
+                if (dist < 115) {
+                    const alpha = (1 - dist / 115) * 0.16;
+                    ctx.strokeStyle = `rgba(179, 136, 255, ${alpha})`;
                     ctx.beginPath();
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
@@ -306,14 +406,39 @@ if (!prefersReducedMotion) {
         }
     }
 
+    function drawAmbientGlow() {
+        const glow = ctx.createRadialGradient(
+            w * 0.5 + pointerX * 45, h * 0.42 + pointerY * 25, 0,
+            w * 0.5 + pointerX * 45, h * 0.42 + pointerY * 25, Math.max(w, h) * 0.55
+        );
+        glow.addColorStop(0, "rgba(179, 136, 255, 0.045)");
+        glow.addColorStop(0.55, "rgba(84, 230, 194, 0.018)");
+        glow.addColorStop(1, "rgba(0, 0, 0, 0)");
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, w, h);
+    }
+
     function animateMotion() {
+        animationFrameId = requestAnimationFrame(animateMotion);
+        if (!canvasVisible) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+            return;
+        }
+
         ctx.clearRect(0, 0, w, h);
+        pointerX += (pointerTargetX - pointerX) * 0.035;
+        pointerY += (pointerTargetY - pointerY) * 0.035;
+        drawAmbientGlow();
         particles.forEach((p) => {
             p.update();
             p.draw();
         });
+        shootingStars.forEach((star) => {
+            star.update();
+            star.draw();
+        });
         drawConnections();
-        requestAnimationFrame(animateMotion);
     }
     animateMotion();
 }
@@ -340,10 +465,21 @@ if (
 
     document.body.appendChild(cursorGlow);
 
+    let glowFrame;
+    let pointerX = 0;
+    let pointerY = 0;
+
     window.addEventListener("mousemove", (event) => {
-        cursorGlow.style.left = `${event.clientX}px`;
-        cursorGlow.style.top = `${event.clientY}px`;
-    });
+        pointerX = event.clientX;
+        pointerY = event.clientY;
+        if (glowFrame) return;
+
+        glowFrame = requestAnimationFrame(() => {
+            cursorGlow.style.left = `${pointerX}px`;
+            cursorGlow.style.top = `${pointerY}px`;
+            glowFrame = null;
+        });
+    }, { passive: true });
 }
 
 /* Card tilt */
@@ -669,7 +805,7 @@ function getBotAnswer(query) {
 
     if (q.includes("who is") || q.includes("about") || q.includes("background") || q.includes("school") || q.includes("age") || q.includes("grade") || q.includes("student")) {
         return {
-            text: "<b>Yogesh</b> is a passionate student and AI developer from <b>Madurai, Tamil Nadu</b>, currently studying in the 9th standard at <b>Seventh Day Adventist English Higher Secondary School</b>. He is the solo architect of the COSMOS Ecosystem, building futuristic web apps, intelligent tools, and robotics controllers!",
+            text: "<b>Yogesh</b> is a passionatee student and AI developer from <b>Madurai, Tamil Nadu</b>, currently studying in the 9th standard at <b>Seventh Day Adventist English Higher Secondary School</b>. He is the solo architect of the COSMOS Ecosystem, building futuristic web apps, intelligent tools, and robotics controllers!",
             actions: [
                 { label: "About Section", url: "#about" },
                 { label: "View Skills", url: "#skills" }
