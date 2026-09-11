@@ -49,6 +49,7 @@ html {
 body {
     min-height: 100vh;
     overflow-x: hidden;
+    isolation: isolate;
     color: var(--heading);
     background:
         radial-gradient(circle at 5% 0%, rgba(179, 136, 255, .13), transparent 28rem),
@@ -103,15 +104,34 @@ textarea:focus-visible {
 
 /* Lightweight background particles */
 #particles {
+    contain: strict;
     position: fixed;
-    z-index: -1;
+    z-index: -3;
     inset: 0;
-    opacity: .06;
+    opacity: .1;
     pointer-events: none;
     background-image:
-        radial-gradient(circle, #fff 1px, transparent 1px),
-        radial-gradient(circle, var(--primary) 1px, transparent 1px);
-    background-size: 120px 120px, 180px 180px;
+        radial-gradient(circle, rgba(255, 255, 255, .9) 0 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(179, 136, 255, .85) 0 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(84, 230, 194, .7) 0 1px, transparent 1.5px);
+    background-position: 0 0, 42px 68px, 90px 24px;
+    background-size: 155px 155px, 225px 225px, 310px 310px;
+    animation: spaceDrift 30s linear infinite;
+    will-change: background-position;
+}
+
+#motion-graphics {
+    mix-blend-mode: screen;
+    will-change: contents;
+}
+
+@keyframes spaceDrift {
+    from {
+        background-position: 0 0, 42px 68px, 90px 24px;
+    }
+    to {
+        background-position: 155px 110px, -183px 240px, 260px -180px;
+    }
 }
 
 /* Header */
@@ -769,6 +789,11 @@ section h2::after {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
+    #motion-graphics,
+    #particles {
+        display: none !important;
+    }
 
     *,
     *::before,
@@ -2275,4 +2300,194 @@ a, button {
 header, .chatbot-widget {
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
+}
+
+/* Mobile polish */
+@media (max-width: 900px) {
+    body {
+        overflow-x: clip;
+    }
+
+    nav {
+        min-height: 64px;
+        width: min(94%, var(--max-width));
+    }
+
+    .nav-links {
+        top: calc(100% + 8px);
+        max-height: calc(100dvh - 84px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    .nav-links a,
+    .nav-toggle,
+    .theme-toggle,
+    .signout-btn {
+        min-height: 44px;
+    }
+
+    .hero {
+        width: min(92%, 560px);
+        gap: 34px;
+    }
+
+    .hero-left h1 {
+        max-width: 100%;
+        text-wrap: balance;
+    }
+
+    .hero-left p {
+        max-width: 48rem;
+    }
+
+    .hero-image-frame,
+    .hero-right {
+        max-width: 100%;
+    }
+
+    .hero-floating-tag {
+        max-width: calc(100% - 16px);
+        white-space: nowrap;
+    }
+
+    .card,
+    .skill,
+    .project-card,
+    .contact-container {
+        contain: layout;
+    }
+
+    .project-card h3,
+    .skill h3,
+    .stat-label {
+        overflow-wrap: anywhere;
+    }
+}
+
+@media (max-width: 600px) {
+    html {
+        scroll-padding-top: 88px;
+    }
+
+    section {
+        padding: 64px 0;
+    }
+
+    .hero {
+        padding-top: 112px;
+        padding-bottom: 52px;
+    }
+
+    .hero-badge {
+        display: flex;
+        width: 100%;
+        margin-bottom: 16px;
+    }
+
+    .hero-left h1 {
+        font-size: clamp(2.05rem, 11vw, 3rem);
+        line-height: 1.12;
+    }
+
+    .hero-left h2 {
+        margin: 16px 0 10px;
+    }
+
+    .hero-actions {
+        align-items: stretch;
+    }
+
+    .hero-actions .btn {
+        flex: 1 1 100%;
+        width: 100%;
+    }
+
+    .hero-right img {
+        width: min(280px, 70vw);
+    }
+
+    .stats-section {
+        padding-top: 8px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .stat-number {
+        font-size: clamp(1.45rem, 8vw, 1.8rem);
+    }
+
+    .stat-label,
+    .stat-sub {
+        overflow-wrap: anywhere;
+    }
+
+    .contact-form {
+        gap: 16px;
+    }
+
+    .form-group textarea {
+        min-height: 130px;
+    }
+
+    .chatbot-widget {
+        right: max(12px, env(safe-area-inset-right));
+        bottom: max(12px, env(safe-area-inset-bottom));
+    }
+
+    .chatbot-toggle {
+        width: 62px;
+        height: 86px;
+    }
+
+    .codex-pet {
+        width: 62px;
+    }
+
+    .chatbot-window {
+        position: fixed;
+        right: max(12px, env(safe-area-inset-right));
+        bottom: max(92px, calc(env(safe-area-inset-bottom) + 92px));
+        left: max(12px, env(safe-area-inset-left));
+        width: auto;
+        height: min(70dvh, 540px);
+        max-height: calc(100dvh - 116px);
+    }
+
+    .chat-input-area {
+        padding-bottom: max(12px, env(safe-area-inset-bottom));
+    }
+
+    .lightbox-content,
+    .auth-modal-card {
+        max-width: calc(100vw - 24px);
+    }
+}
+
+@media (max-width: 380px) {
+    .logo {
+        font-size: .95rem;
+    }
+
+    .hero {
+        width: min(92%, 340px);
+    }
+
+    .stats-card {
+        min-height: 112px;
+    }
+
+    .stats-grid {
+        gap: 7px;
+    }
+
+    .stat-card {
+        padding: 15px 5px;
+    }
+
+    .stat-sub {
+        font-size: .64rem;
+    }
 }
