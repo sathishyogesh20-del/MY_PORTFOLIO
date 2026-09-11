@@ -42,7 +42,7 @@
     <!-- Preload Hero LCP Image for Core Web Vitals -->
     <link rel="preload" as="image"
         href="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/ae7e4c70-a22f-4014-80ed-903dc4bb7682.jpg"
-        fetchpriority="high">
+        fetchpriority="high" type="image/jpeg">
 
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -231,7 +231,7 @@
                     <div class="hero-image-frame">
                         <img src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/ae7e4c70-a22f-4014-80ed-903dc4bb7682.jpg"
                             alt="Portrait of Yogesh, an AI developer from Madurai" width="380" height="380"
-                            fetchpriority="high">
+                            fetchpriority="high" decoding="async">
                         <div class="hero-floating-tag">
                             <i class="fa-solid fa-brain" aria-hidden="true"></i>
                             <span>COSMOS Creator</span>
@@ -341,7 +341,7 @@
                         <div class="cert-image-container">
                             <img class="achievement-image"
                                 src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI_CERTIFICATE.png"
-                                alt="Google Gemini AI for Students certificate earned by Yogesh" loading="lazy" width="400"
+                                alt="Google Gemini AI for Students certificate earned by Yogesh" loading="lazy" decoding="async" width="400"
                                 height="210">
                             <span class="cert-badge google-badge"><i class="fa-brands fa-google"></i> Google</span>
                             <span class="cert-zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> Click to Zoom</span>
@@ -360,7 +360,7 @@
                             <img class="achievement-image"
                                 src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI%20CERTFIFCATIONS%20FOR%20STUDENTS%20(UNIVERSITY).png"
                                 alt="Google Gemini AI University Category certification earned by Sathish Yogesh"
-                                loading="lazy" width="400" height="210">
+                                loading="lazy" decoding="async" width="400" height="210">
                             <span class="cert-badge google-badge"><i class="fa-brands fa-google"></i> Google</span>
                             <span class="cert-zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> Click to Zoom</span>
                         </div>
@@ -377,7 +377,7 @@
                         <div class="cert-image-container">
                             <img class="achievement-image"
                                 src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI%20CERTFICATION%20FOR%20EDUCATOR.png"
-                                alt="Google Gemini for Educator AI certification" loading="lazy" width="400" height="210">
+                                alt="Google Gemini for Educator AI certification" loading="lazy" decoding="async" width="400" height="210">
                             <span class="cert-badge google-badge"><i class="fa-brands fa-google"></i> Google</span>
                             <span class="cert-zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> Click to Zoom</span>
                         </div>
@@ -430,7 +430,7 @@
                         <div class="cert-image-container">
                             <img class="achievement-image"
                                 src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GOOGLE%20CLOUD.png"
-                                alt="Simplilearn Google Cloud computing fundamentals certificate" loading="lazy" width="400"
+                                alt="Simplilearn Google Cloud computing fundamentals certificate" loading="lazy" decoding="async" width="400"
                                 height="210">
                             <span class="cert-badge cloud-badge"><i class="fa-solid fa-cloud"></i> Google Cloud</span>
                             <span class="cert-zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> Click to Zoom</span>
@@ -816,9 +816,9 @@
     </div>
 
     <!-- Firebase (compat build, no bundler needed) -->
-    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-    <script src="auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js" defer></script>
+    <script src="auth.js" defer></script>
 
     <script src="script.js" defer></script>
 </body>
