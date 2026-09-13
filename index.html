@@ -153,6 +153,47 @@
         ]
     }
     </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Who is Yogesh?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yogesh is a student and AI developer from Madurai, Tamil Nadu, currently in the 9th standard at Seventh Day Adventist English Higher Secondary School. He is the solo developer of the COSMOS Ecosystem, building AI-powered web apps, automation tools, and robotics projects."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What AI certifications does Yogesh hold?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yogesh holds Google Gemini AI for Students certification (including the University Category), Google Gemini Certification for Educator, an OpenAI ChatGPT certificate, Anthropic Claude AI Fluency for Students, and a Google Cloud fundamentals certificate from Simplilearn."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is the COSMOS Ecosystem?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The COSMOS Ecosystem is Yogesh's multi-service AI platform, spanning conversational AI apps (cosmos-ai, cosmos-129), robotics and hardware control (cosmos-hand, cosmos-controller), and knowledge hubs (cosmos.128, cosmos-128.v1)."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How can I contact Yogesh?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "You can reach Yogesh through the contact form on this site or by emailing sathishyogesh20@gmail.com directly."
+                }
+            }
+        ]
+    }
+    </script>
 </head>
 
 <body>
@@ -728,8 +769,12 @@
                     <!-- arms -->
                     <path class="codex-arm codex-arm-left" d="M14 47 Q3 55 7 65" stroke="url(#codexBodyGrad)" stroke-width="7" stroke-linecap="round" fill="none"></path>
                     <path class="codex-arm codex-arm-right" d="M46 47 Q57 55 53 65" stroke="url(#codexBodyGrad)" stroke-width="7" stroke-linecap="round" fill="none"></path>
-                    <circle cx="7" cy="65" r="4" fill="var(--accent)"></circle>
-                    <circle cx="53" cy="65" r="4" fill="var(--secondary)"></circle>
+
+                    <!-- hands, with a couple of finger notches so they don't read as plain dots -->
+                    <circle cx="7" cy="65" r="4.4" fill="var(--accent)"></circle>
+                    <path d="M4.5 63.5 L4.5 66.5 M9.5 63.5 L9.5 66.5" stroke="rgba(11,8,22,.4)" stroke-width="1" stroke-linecap="round"></path>
+                    <circle cx="53" cy="65" r="4.4" fill="var(--secondary)"></circle>
+                    <path d="M50.5 63.5 L50.5 66.5 M55.5 63.5 L55.5 66.5" stroke="rgba(11,8,22,.4)" stroke-width="1" stroke-linecap="round"></path>
 
                     <!-- torso -->
                     <rect class="codex-torso" x="12" y="40" width="36" height="34" rx="16" fill="url(#codexBodyGrad)"></rect>
@@ -741,28 +786,37 @@
                     <!-- neck -->
                     <rect x="26" y="33" width="8" height="8" rx="3" fill="url(#codexBodyGrad)"></rect>
 
-                    <!-- ear fins -->
-                    <path class="codex-fin codex-fin-left" d="M12 18 Q3 15 7 26 Q12 29 16 22 Z"></path>
-                    <path class="codex-fin codex-fin-right" d="M48 18 Q57 15 53 26 Q48 29 44 22 Z"></path>
+                    <!-- head group: tilts gently on its own, independent of the body's hover bob -->
+                    <g class="codex-head">
+                        <!-- ear fins -->
+                        <path class="codex-fin codex-fin-left" d="M12 18 Q3 15 7 26 Q12 29 16 22 Z"></path>
+                        <path class="codex-fin codex-fin-right" d="M48 18 Q57 15 53 26 Q48 29 44 22 Z"></path>
 
-                    <!-- head -->
-                    <ellipse class="codex-body" cx="30" cy="22" rx="14" ry="13"></ellipse>
-                    <ellipse cx="30" cy="24" rx="9" ry="8" fill="rgba(11,8,22,.55)"></ellipse>
+                        <!-- head -->
+                        <ellipse class="codex-body" cx="30" cy="22" rx="14" ry="13"></ellipse>
+                        <ellipse cx="30" cy="24" rx="9" ry="8" fill="rgba(11,8,22,.55)"></ellipse>
 
-                    <!-- eyes -->
-                    <g class="codex-eyes">
-                        <circle class="codex-eye" cx="26" cy="24" r="2.6" fill="#fff"></circle>
-                        <circle class="codex-eye" cx="34" cy="24" r="2.6" fill="#fff"></circle>
-                        <circle cx="26" cy="24" r="1.1" fill="#120d25"></circle>
-                        <circle cx="34" cy="24" r="1.1" fill="#120d25"></circle>
+                        <!-- blush -->
+                        <ellipse cx="22.5" cy="27" rx="1.8" ry="1.1" fill="var(--secondary)" opacity=".55"></ellipse>
+                        <ellipse cx="37.5" cy="27" rx="1.8" ry="1.1" fill="var(--secondary)" opacity=".55"></ellipse>
+
+                        <!-- eyes -->
+                        <g class="codex-eyes">
+                            <circle class="codex-eye" cx="26" cy="24" r="2.6" fill="#fff"></circle>
+                            <circle class="codex-eye" cx="34" cy="24" r="2.6" fill="#fff"></circle>
+                            <g class="codex-pupils">
+                                <circle cx="26" cy="24" r="1.1" fill="#120d25"></circle>
+                                <circle cx="34" cy="24" r="1.1" fill="#120d25"></circle>
+                            </g>
+                        </g>
+
+                        <!-- smile -->
+                        <path class="codex-smile" d="M26 30 Q30 33 34 30" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"></path>
+
+                        <!-- antenna -->
+                        <line class="codex-antenna" x1="30" y1="10" x2="30" y2="3" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"></line>
+                        <circle class="codex-antenna-tip" cx="30" cy="3" r="3"></circle>
                     </g>
-
-                    <!-- smile -->
-                    <path class="codex-smile" d="M26 30 Q30 33 34 30" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"></path>
-
-                    <!-- antenna -->
-                    <line class="codex-antenna" x1="30" y1="10" x2="30" y2="3" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"></line>
-                    <circle class="codex-antenna-tip" cx="30" cy="3" r="3"></circle>
                 </g>
             </svg>
         </button>
