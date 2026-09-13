@@ -1551,6 +1551,18 @@ section h2::after {
     animation: codexFinWag 2.8s ease-in-out infinite;
 }
 
+.codex-head {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: codexHeadTilt 5.4s ease-in-out infinite;
+}
+
+.codex-pupils {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: codexGlance 7s ease-in-out infinite;
+}
+
 .codex-fin-right {
     fill: var(--accent);
     animation-delay: .35s;
@@ -1565,6 +1577,11 @@ section h2::after {
 .codex-smile {
     transform-box: fill-box;
     transform-origin: center;
+    transition: transform .3s ease;
+}
+
+.chatbot-toggle:hover .codex-smile {
+    transform: scaleX(1.15) scaleY(1.1);
 }
 
 .codex-antenna-tip {
@@ -1603,6 +1620,22 @@ section h2::after {
 @keyframes codexFinWag {
     0%, 100% { transform: rotate(0deg); }
     50% { transform: rotate(-7deg); }
+}
+
+@keyframes codexHeadTilt {
+    0%, 100% { transform: rotate(0deg); }
+    30% { transform: rotate(-4deg); }
+    60% { transform: rotate(3deg); }
+}
+
+@keyframes codexGlance {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(0); }
+    28% { transform: translateX(-0.8px); }
+    40% { transform: translateX(-0.8px); }
+    48% { transform: translateX(0.8px); }
+    60% { transform: translateX(0.8px); }
+    68% { transform: translateX(0); }
 }
 
 @keyframes codexBlink {
