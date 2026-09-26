@@ -9,10 +9,10 @@
     <meta name="description"
         content="Yogesh is an AI developer and student from Madurai, Tamil Nadu, creating AI-powered websites, applications, automation tools, and the COSMOS Ecosystem.">
     <meta name="keywords"
-        content="Yogesh AI Developer, AI developer in Madurai, Python learner, web developer, COSMOS Ecosystem, artificial intelligence, automation, yogesh, yogesh cosmos, cosmos">
-    <meta name="author" content="YOGESHWARAN.S">
+        content="Yogesh AI Developer, AI developer in Madurai, Python learner, web developer, COSMOS Ecosystem, artificial intelligence, automation">
+    <meta name="author" content="Sathish Yogesh">
     <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#0b0816">
+    <meta name="theme-color" content="#080d16">
     <link rel="canonical" href="https://sathishyogesh20-del.github.io/MY_PORTFOLIO/">
 
     <link rel="icon" type="image/svg+xml"
@@ -48,9 +48,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="themes.css">
 
     <script type="application/ld+json">
     {
@@ -197,6 +198,17 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <div id="page-loader" class="page-loader" hidden role="status" aria-live="polite" aria-label="Loading portfolio">
+        <div class="loader-orbit" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <p>Preparing your COSMOS experience…</p>
+    </div>
+
     <div id="particles" aria-hidden="true"></div>
 
     <!-- Auth Modal (only triggered when visitor interacts with or submits the contact form) -->
@@ -245,7 +257,7 @@
             </nav>
         </header>
 
-        <main>
+        <main id="main-content" tabindex="-1">
             <section id="home" class="hero" aria-labelledby="home-title">
                 <div class="hero-left">
                     <div class="hero-badge">
@@ -485,40 +497,39 @@
             <section id="projects" aria-labelledby="projects-title">
                 <h2 id="projects-title">AI & Web Development Projects</h2>
 
-                <!-- Category Filter Tabs -->
-                <div class="project-filter-tabs" role="tablist" aria-label="Filter projects">
-                    <button type="button" class="filter-btn active" data-filter="all" role="tab" aria-selected="true">
+                <!-- Project categories use buttons so every filter remains keyboard accessible. -->
+                <div class="project-filter-tabs" role="group" aria-label="Filter projects">
+                    <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">
                         <i class="fa-solid fa-border-all" aria-hidden="true"></i> All Projects
                     </button>
-                    <button type="button" class="filter-btn" data-filter="ai" role="tab" aria-selected="false">
+                    <button type="button" class="filter-btn" data-filter="ai" aria-pressed="false">
                         <i class="fa-solid fa-robot" aria-hidden="true"></i> AI Apps
                     </button>
-                    <button type="button" class="filter-btn" data-filter="hardware" role="tab" aria-selected="false">
+                    <button type="button" class="filter-btn" data-filter="web" aria-pressed="false">
+                        <i class="fa-solid fa-cube" aria-hidden="true"></i> Web & 3D
+                    </button>
+                    <button type="button" class="filter-btn" data-filter="hardware" aria-pressed="false">
                         <i class="fa-solid fa-microchip" aria-hidden="true"></i> Robotics & Hardware
                     </button>
-                    <button type="button" class="filter-btn" data-filter="books" role="tab" aria-selected="false">
+                    <button type="button" class="filter-btn" data-filter="books" aria-pressed="false">
                         <i class="fa-solid fa-book-open" aria-hidden="true"></i> E-Books
                     </button>
                 </div>
+                <p id="project-filter-status" class="project-filter-status" role="status" aria-live="polite">Showing all 11 projects.</p>
 
                 <div class="projects-grid" id="projects-grid">
                     <!-- cosmos-ai -->
                     <div class="project-card rich-project-card" data-category="ai">
                         <div class="project-card-header">
                             <div class="project-icon-box ai-icon"><i class="fa-solid fa-brain"></i></div>
-                            <span class="project-badge">AI Assistant</span>
+                            <span class="project-badge">Under Development</span>
                         </div>
                         <h3>cosmos-ai</h3>
-                        <p>Interactive intelligent conversational AI application under the COSMOS banner.</p>
+                        <p>Currently under development and testing. Public testing will launch soon.</p>
                         <div class="project-tech-tags">
                             <span class="tech-tag">Gemini API</span>
                             <span class="tech-tag">Lovable</span>
                             <span class="tech-tag">Full-Stack</span>
-                        </div>
-                        <div class="project-actions">
-                            <a href="https://yogeshcosmos20.lovable.app" class="btn btn-sm" target="_blank" rel="noopener noreferrer">
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Open App
-                            </a>
                         </div>
                     </div>
 
@@ -526,19 +537,14 @@
                     <div class="project-card rich-project-card" data-category="ai">
                         <div class="project-card-header">
                             <div class="project-icon-box ai-icon"><i class="fa-solid fa-sparkles"></i></div>
-                            <span class="project-badge">Next-Gen App</span>
+                            <span class="project-badge">Under Development</span>
                         </div>
                         <h3>cosmos-129</h3>
-                        <p>Advanced iteration of the COSMOS platform with integrated AI intelligence and sleek UI.</p>
+                        <p>Currently under development and testing. Public testing will launch soon.</p>
                         <div class="project-tech-tags">
                             <span class="tech-tag">Web AI</span>
                             <span class="tech-tag">Lovable</span>
                             <span class="tech-tag">UI/UX</span>
-                        </div>
-                        <div class="project-actions">
-                            <a href="https://yogeshcosmos.lovable.app" class="btn btn-sm" target="_blank" rel="noopener noreferrer">
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Open App
-                            </a>
                         </div>
                     </div>
 
@@ -602,8 +608,8 @@
                         </div>
                     </div>
 
-                    <!-- cosmos-eyes -->
-                    <div class="project-card rich-project-card" data-category="ai">
+                                        <!-- cosmos-eyes -->
+                    <div class="project-card rich-project-card" data-category="web">
                         <div class="project-card-header">
                             <div class="project-icon-box web-icon"><i class="fa-solid fa-eye"></i></div>
                             <span class="project-badge">3D Experience</span>
@@ -622,8 +628,68 @@
                         </div>
                     </div>
 
-                                            <!-- cosmos-128.v1 -->
-                    <div class="project-card rich-project-card" data-category="ai">
+                    <!-- Cosmos-Arogya -->
+                    <div class="project-card rich-project-card" data-category="web">
+                        <div class="project-card-header">
+                            <div class="project-icon-box ai-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                            <span class="project-badge">Health App</span>
+                        </div>
+                        <h3>Cosmos-Arogya</h3>
+                        <p>A health-focused digital experience from the COSMOS project ecosystem.</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Health</span>
+                            <span class="tech-tag">Web App</span>
+                            <span class="tech-tag">COSMOS</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://cosmos-arogya-gold.vercel.app/" class="btn btn-sm" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Open App
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- cosmos-3d -->
+                    <div class="project-card rich-project-card" data-category="web">
+                        <div class="project-card-header">
+                            <div class="project-icon-box web-icon"><i class="fa-solid fa-cube"></i></div>
+                            <span class="project-badge">3D Experience</span>
+                        </div>
+                        <h3>cosmos-3d</h3>
+                        <p>An interactive 3D experience built as part of the COSMOS ecosystem.</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">3D Web</span>
+                            <span class="tech-tag">Interactive</span>
+                            <span class="tech-tag">COSMOS</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://sathishyogesh20-del.github.io/cosmos--3d/" class="btn btn-sm" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-solid fa-play"></i> Explore Demo
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- cosmos-qr -->
+                    <div class="project-card rich-project-card" data-category="web">
+                        <div class="project-card-header">
+                            <div class="project-icon-box web-icon"><i class="fa-solid fa-qrcode"></i></div>
+                            <span class="project-badge">QR Tool</span>
+                        </div>
+                        <h3>cosmos-qr</h3>
+                        <p>A QR-focused web tool in the COSMOS project collection.</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">QR Codes</span>
+                            <span class="tech-tag">Web Tool</span>
+                            <span class="tech-tag">COSMOS</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://cosmos-qr-cyan.vercel.app/" class="btn btn-sm" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Tool
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- cosmos-128.v1 -->
+                    <div class="project-card rich-project-card" data-category="web">
                         <div class="project-card-header">
                             <div class="project-icon-box web-icon"><i class="fa-solid fa-globe"></i></div>
                             <span class="project-badge">Web Portal</span>
@@ -643,7 +709,7 @@
                     </div>
 
                     <!-- cosmos.128 -->
-                    <div class="project-card rich-project-card" data-category="ai">
+                    <div class="project-card rich-project-card" data-category="web">
                         <div class="project-card-header">
                             <div class="project-icon-box web-icon"><i class="fa-solid fa-newspaper"></i></div>
                             <span class="project-badge">Knowledge Hub</span>
@@ -678,7 +744,7 @@
                 <div class="contact-container">
                     <p class="contact-intro">
                         Have a project idea, question, or collaboration opportunity?
-                        Send a message using the verified contact form below.
+                        Write your message below; Google sign-in is only requested when you send it.
                     </p>
 
                     <!-- Auth status banner above contact form -->
@@ -691,7 +757,7 @@
                         <div id="contact-signed-out" class="contact-guest-prompt">
                             <div class="prompt-text">
                                 <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
-                                <span>Sign in with Google to send a verified message directly to Yogesh:</span>
+                                <span>Google sign-in verifies your message before it is sent:</span>
                             </div>
                             <button type="button" id="contact-signin-trigger" class="btn auth-signin-btn-sm">
                                 <i class="fa-brands fa-google" aria-hidden="true"></i> Sign in with Google
