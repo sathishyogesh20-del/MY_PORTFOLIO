@@ -1,6 +1,28 @@
 // Mark JavaScript as available without making the page depend on it.
 document.documentElement.classList.add("js-enabled");
 
+/* Brief branded loader, with a timeout for slow or blocked resources. */
+const pageLoader = document.getElementById("page-loader");
+if (pageLoader) {
+    pageLoader.removeAttribute("hidden");
+    requestAnimationFrame(() => pageLoader.classList.add("visible"));
+
+    let loaderDismissed = false;
+    const dismissPageLoader = () => {
+        if (loaderDismissed) return;
+        loaderDismissed = true;
+        pageLoader.classList.remove("visible");
+        setTimeout(() => pageLoader.setAttribute("hidden", ""), 350);
+    };
+
+    if (document.readyState === "complete") {
+        setTimeout(dismissPageLoader, 450);
+    } else {
+        window.addEventListener("load", () => setTimeout(dismissPageLoader, 450), { once: true });
+    }
+    setTimeout(dismissPageLoader, 5000);
+}
+
 const sections = document.querySelectorAll("section");
 const navLinks = document.querySelectorAll(".nav-links a");
 const header = document.querySelector("header");
@@ -49,42 +71,62 @@ if (navToggle && navList) {
 const themeButton = document.createElement("button");
 themeButton.className = "theme-toggle";
 themeButton.type = "button";
+themeButton.setAttribute("aria-label", "Change color theme");
 
-const savedTheme = localStorage.getItem("portfolio-theme");
+const themeOptions = ["deep-space", "supernova", "nebula", "event-horizon", "arctic-orbit", "solar-flare"];
+const themeLabels = {
+    "deep-space": "Deep Space",
+    supernova: "Supernova",
+    nebula: "Nebula",
+    "event-horizon": "Event Horizon",
+    "arctic-orbit": "Arctic Orbit",
+    "solar-flare": "Solar Flare"
+};
+let currentTheme = "deep-space";
 
-if (savedTheme === "blue") {
-    document.body.classList.add("blue-theme");
+try {
+    const savedTheme = localStorage.getItem("portfolio-theme");
+    if (themeOptions.includes(savedTheme)) {
+        currentTheme = savedTheme;
+    }
+} catch (error) {
+    // Storage may be unavailable in private or restricted browsing contexts.
+}
+
+function applyTheme(theme) {
+    document.body.classList.remove(
+        "blue-theme", "supernova-theme", "nebula-theme",
+        "event-horizon-theme", "arctic-orbit-theme", "solar-flare-theme"
+    );
+    if (theme !== "deep-space") {
+        document.body.classList.add(`${theme}-theme`);
+    }
+    currentTheme = theme;
 }
 
 function updateThemeButton() {
-    const isBlue = document.body.classList.contains("blue-theme");
-
-    themeButton.innerHTML = isBlue
-        ? '<i class="fa-solid fa-palette" aria-hidden="true"></i>'
-        : '<i class="fa-solid fa-droplet" aria-hidden="true"></i>';
-
-    themeButton.title = isBlue
-        ? "Switch to violet theme"
-        : "Switch to blue theme";
-
-    themeButton.setAttribute(
-        "aria-label",
-        isBlue ? "Switch to violet theme" : "Switch to blue theme"
-    );
+    const nextTheme = themeOptions[(themeOptions.indexOf(currentTheme) + 1) % themeOptions.length];
+    themeButton.innerHTML = '<i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i>';
+    themeButton.title = `Current theme: ${themeLabels[currentTheme]}. Switch to ${themeLabels[nextTheme]}`;
+    themeButton.setAttribute("aria-label", `Current theme: ${themeLabels[currentTheme]}. Switch to ${themeLabels[nextTheme]}`);
 }
 
-themeButton.addEventListener("click", () => {
-    document.body.classList.toggle("blue-theme");
+applyTheme(currentTheme);
 
-    localStorage.setItem(
-        "portfolio-theme",
-        document.body.classList.contains("blue-theme")
-            ? "blue"
-            : "violet"
-    );
+themeButton.addEventListener("click", () => {
+    const nextTheme = themeOptions[(themeOptions.indexOf(currentTheme) + 1) % themeOptions.length];
+    applyTheme(nextTheme);
+
+    try {
+        localStorage.setItem("portfolio-theme", currentTheme);
+    } catch (error) {
+        // The theme still changes for this page view if storage is unavailable.
+    }
 
     updateThemeButton();
 });
+
+updateThemeButton();
 
 const navigation = document.querySelector("nav");
 
@@ -147,12 +189,14 @@ if ("IntersectionObserver" in window) {
 
             entry.target.classList.add("show");
 
-            navLinks.forEach((link) => {
-                link.classList.toggle(
-                    "active",
-                    link.getAttribute("href") === `#${entry.target.id}`
-                );
-            });
+            if (entry.target.id) {
+                navLinks.forEach((link) => {
+                    link.classList.toggle(
+                        "active",
+                        link.getAttribute("href") === `#${entry.target.id}`
+                    );
+                });
+            }
         });
     }, { threshold: 0.18 });
 
@@ -263,6 +307,8 @@ if (!prefersReducedMotion) {
 
     let animationFrameId;
     let canvasVisible = true;
+    let lastMotionFrame = 0;
+    const motionFrameInterval = 1000 / 30;
     let deviceScale = Math.min(window.devicePixelRatio || 1, 1.5);
 
     function resizeCanvas() {
@@ -335,8 +381,8 @@ if (!prefersReducedMotion) {
     function createParticles() {
         particles = [];
         const pixelArea = w * h;
-        const maxParticles = window.innerWidth < 600 ? 55 : 125;
-        const count = Math.min(maxParticles, Math.max(28, Math.floor(pixelArea / 11000)));
+        const maxParticles = window.innerWidth < 600 ? 14 : 42;
+        const count = Math.min(maxParticles, Math.max(12, Math.floor(pixelArea / 18000)));
         for (let i = 0; i < count; i++) {
             particles.push(new Particle());
         }
@@ -418,13 +464,15 @@ if (!prefersReducedMotion) {
         ctx.fillRect(0, 0, w, h);
     }
 
-    function animateMotion() {
+    function animateMotion(timestamp = 0) {
         animationFrameId = requestAnimationFrame(animateMotion);
         if (!canvasVisible) {
             cancelAnimationFrame(animationFrameId);
             animationFrameId = null;
             return;
         }
+        if (timestamp - lastMotionFrame < motionFrameInterval) return;
+        lastMotionFrame = timestamp;
 
         ctx.clearRect(0, 0, w, h);
         pointerX += (pointerTargetX - pointerX) * 0.035;
@@ -438,7 +486,6 @@ if (!prefersReducedMotion) {
             star.update();
             star.draw();
         });
-        drawConnections();
     }
     animateMotion();
 }
@@ -493,11 +540,11 @@ if (
             const x = event.clientX - bounds.left;
             const y = event.clientY - bounds.top;
 
-            const rotateX = ((y / bounds.height) - 0.5) * -8;
-            const rotateY = ((x / bounds.width) - 0.5) * 8;
+            const rotateX = ((y / bounds.height) - 0.5) * -4;
+            const rotateY = ((x / bounds.width) - 0.5) * 4;
 
             card.style.transform =
-                `perspective(700px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+                `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
         });
 
         card.addEventListener("mouseleave", () => {
@@ -525,7 +572,10 @@ function submitVerifiedContactForm() {
         method: "POST",
         body: formData
     })
-        .then(() => {
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Contact form request failed.");
+            }
             if (contactSubmitBtn) {
                 contactSubmitBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Message Sent ✔';
             }
@@ -560,22 +610,18 @@ if (contactForm) {
                 submitVerifiedContactForm();
             }, "Sign in with Google to send a verified message to Yogesh.");
         } else {
-            // Fallback if auth is unavailable
-            submitVerifiedContactForm();
+            // Never send a message as verified when the authentication module is unavailable.
+            if (contactSubmitBtn) {
+                contactSubmitBtn.disabled = true;
+                contactSubmitBtn.innerHTML = '<i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Sign-in unavailable — email directly';
+                setTimeout(() => {
+                    contactSubmitBtn.disabled = false;
+                    contactSubmitBtn.innerHTML = '<i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send Message';
+                }, 3500);
+            }
         }
     });
 
-    // When clicking into the message field while signed out, prompt them nicely
-    const msgInput = document.getElementById("message");
-    if (msgInput) {
-        msgInput.addEventListener("focus", () => {
-            if (typeof window.isUserAuthenticated === "function" && !window.isUserAuthenticated()) {
-                if (typeof window.openAuthModal === "function") {
-                    window.openAuthModal(null, "Sign in with Google to pre-fill your info and send a verified message.");
-                }
-            }
-        }, { once: true });
-    }
 }
 
 /* ==========================================================
@@ -647,25 +693,31 @@ document.addEventListener("keydown", (e) => {
 const filterButtons = document.querySelectorAll(".project-filter-tabs .filter-btn");
 const projectCards = document.querySelectorAll(".rich-project-card");
 
+const filterStatus = document.getElementById("project-filter-status");
+
 filterButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
-        filterButtons.forEach((b) => {
-            b.classList.remove("active");
-            b.setAttribute("aria-selected", "false");
+        filterButtons.forEach((button) => {
+            const isActive = button === btn;
+            button.classList.toggle("active", isActive);
+            button.setAttribute("aria-pressed", String(isActive));
         });
-        btn.classList.add("active");
-        btn.setAttribute("aria-selected", "true");
 
         const filter = btn.getAttribute("data-filter") || "all";
+        let visibleCount = 0;
 
         projectCards.forEach((card) => {
-            const category = card.getAttribute("data-category");
-            if (filter === "all" || category === filter) {
-                card.classList.remove("filter-hidden");
-            } else {
-                card.classList.add("filter-hidden");
-            }
+            const isVisible = filter === "all" || card.getAttribute("data-category") === filter;
+            card.classList.toggle("filter-hidden", !isVisible);
+            if (isVisible) visibleCount++;
         });
+
+        if (filterStatus) {
+            const categoryName = btn.textContent.trim().replace(/\s+/g, " ");
+            filterStatus.textContent = filter === "all"
+                ? `Showing all ${visibleCount} projects.`
+                : `Showing ${visibleCount} ${visibleCount === 1 ? "project" : "projects"} in ${categoryName}.`;
+        }
     });
 });
 
@@ -776,6 +828,7 @@ function appendBotMessage(text, actions = []) {
                 // Minimize chat on small screens so visitor sees the section
                 if (window.innerWidth < 768) {
                     chatbotWindow.setAttribute("hidden", "");
+                    if (chatbotToggle) chatbotToggle.setAttribute("aria-expanded", "false");
                 }
             }
         });
@@ -805,7 +858,7 @@ function getBotAnswer(query) {
 
     if (q.includes("who is") || q.includes("about") || q.includes("background") || q.includes("school") || q.includes("age") || q.includes("grade") || q.includes("student")) {
         return {
-            text: "<b>Yogesh</b> is a passionatee student and AI developer from <b>Madurai, Tamil Nadu</b>, currently studying in the 9th standard at <b>Seventh Day Adventist English Higher Secondary School</b>. He is the solo architect of the COSMOS Ecosystem, building futuristic web apps, intelligent tools, and robotics controllers!",
+            text: "<b>Yogesh</b> is a passionate student and AI developer from <b>Madurai, Tamil Nadu</b>, currently studying in the 9th standard at <b>Seventh Day Adventist English Higher Secondary School</b>. He is the solo architect of the COSMOS Ecosystem, building futuristic web apps, intelligent tools, and robotics controllers!",
             actions: [
                 { label: "About Section", url: "#about" },
                 { label: "View Skills", url: "#skills" }
