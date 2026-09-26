@@ -1,0 +1,245 @@
+/* Additional dark space palettes for the theme switcher. */
+body.event-horizon-theme,
+body.arctic-orbit-theme,
+body.solar-flare-theme {
+    color-scheme: dark;
+    --shadow: 0 22px 60px rgba(0, 0, 0, .42);
+}
+
+/* Event Horizon — near-black indigo, molten amber, and red-shift accents. */
+body.event-horizon-theme {
+    --bg: #09080d;
+    --surface: #17131b;
+    --surface-soft: #211923;
+    --input: #100d14;
+    --primary: #ffb45e;
+    --primary-light: #ffe0ae;
+    --secondary: #ff657a;
+    --accent: #ffdb70;
+    --heading: #fff8ef;
+    --text: #d8c9c0;
+    --muted: #ad9b96;
+    --border: rgba(255, 180, 94, .2);
+    --tone-blue: #ffb45e;
+    --tone-mint: #ffdb70;
+    --tone-rose: #ff657a;
+    --tone-gold: #ffd184;
+    background:
+        radial-gradient(ellipse at 82% 8%, rgba(255, 103, 76, .17), transparent 35rem),
+        radial-gradient(ellipse at 8% 48%, rgba(255, 180, 94, .09), transparent 31rem),
+        linear-gradient(180deg, #100b12 0%, var(--bg) 48rem);
+}
+body.event-horizon-theme::before {
+    opacity: .055;
+    background-image: linear-gradient(rgba(255, 180, 94, .34) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 180, 94, .34) 1px, transparent 1px);
+}
+body.event-horizon-theme header,
+body.event-horizon-theme header.scrolled { background: rgba(9, 8, 13, .9); }
+body.event-horizon-theme .logo,
+body.event-horizon-theme .nav-links a:hover,
+body.event-horizon-theme .nav-links a.active { color: var(--primary-light); }
+body.event-horizon-theme .nav-links a::after { background: var(--secondary); }
+body.event-horizon-theme .nav-toggle,
+body.event-horizon-theme .theme-toggle,
+body.event-horizon-theme .nav-links.open { color: var(--primary-light); background: rgba(23, 19, 27, .97); }
+body.event-horizon-theme .hero::before { background: radial-gradient(circle, rgba(255, 180, 94, .18), rgba(255, 101, 122, .06) 48%, transparent 72%); }
+body.event-horizon-theme .hero::after { border-color: rgba(255, 180, 94, .3); background: radial-gradient(circle, rgba(255, 101, 122, .1), transparent 65%); }
+body.event-horizon-theme .hero-left h1 { color: #fff8ef; }
+body.event-horizon-theme .hero-left h1 span { background-image: linear-gradient(110deg, #fff0d2, #ffb45e 55%, #ff657a); }
+body.event-horizon-theme .hero-left h2,
+body.event-horizon-theme .hero-floating-tag { color: var(--accent); }
+body.event-horizon-theme .hero-badge { color: #ffe0ae; border-color: rgba(255, 180, 94, .3); background: rgba(255, 180, 94, .08); }
+body.event-horizon-theme .hero-right img { border-color: rgba(255, 224, 174, .75); box-shadow: 0 0 0 10px rgba(255, 180, 94, .08), 0 26px 80px rgba(0, 0, 0, .55); }
+body.event-horizon-theme section:not(.hero):not(.stats-section) { border-top-color: rgba(255, 180, 94, .1); }
+body.event-horizon-theme section h2 { color: var(--heading); }
+body.event-horizon-theme section h2::before { color: var(--accent); }
+body.event-horizon-theme #about h2, body.event-horizon-theme #projects h2 { color: var(--primary-light); }
+body.event-horizon-theme #skills h2, body.event-horizon-theme #contact h2 { color: var(--accent); }
+body.event-horizon-theme #achievements h2 { color: var(--secondary); }
+body.event-horizon-theme .stat-card,
+body.event-horizon-theme .card,
+body.event-horizon-theme .skill,
+body.event-horizon-theme .project-card,
+body.event-horizon-theme .contact-container {
+    border-color: rgba(255, 180, 94, .16);
+    background-image: linear-gradient(145deg, rgba(255, 180, 94, .055), transparent 52%),
+        linear-gradient(145deg, #211923, #120f16);
+}
+body.event-horizon-theme .stat-number,
+body.event-horizon-theme .project-card h3,
+body.event-horizon-theme .skill i { color: var(--primary); }
+body.event-horizon-theme .stat-card:nth-child(2) .stat-number { color: var(--accent); }
+body.event-horizon-theme .stat-card:nth-child(3) .stat-number { color: var(--secondary); }
+body.event-horizon-theme .project-card:nth-child(3n + 2) h3 { color: var(--accent); }
+body.event-horizon-theme .project-card:nth-child(3n) h3 { color: var(--secondary); }
+body.event-horizon-theme .filter-btn.active,
+body.event-horizon-theme .btn:not(.btn-secondary) { color: #21120d; background: linear-gradient(115deg, #ffb45e, #ffdb70); }
+body.event-horizon-theme .filter-btn.active { color: #21120d; }
+body.event-horizon-theme .form-group input,
+body.event-horizon-theme .form-group textarea { color: var(--heading); border-color: rgba(255, 180, 94, .22); background: rgba(9, 8, 13, .78); }
+body.event-horizon-theme .form-group label { color: var(--primary-light); }
+body.event-horizon-theme .contact-email a { color: var(--accent); }
+body.event-horizon-theme .chatbot-window,
+body.event-horizon-theme .auth-modal-card,
+body.event-horizon-theme .lightbox-content { background: linear-gradient(150deg, #211923, #100d14); }
+
+/* Arctic Orbit — midnight navy with sharp ice-blue and aurora mint. */
+body.arctic-orbit-theme {
+    --bg: #06121d;
+    --surface: #0d1e2b;
+    --surface-soft: #122a39;
+    --input: #081722;
+    --primary: #72dcff;
+    --primary-light: #d3f7ff;
+    --secondary: #8ba7ff;
+    --accent: #77f0d0;
+    --heading: #f1fbff;
+    --text: #c3d9e4;
+    --muted: #8eaab8;
+    --border: rgba(114, 220, 255, .2);
+    --tone-blue: #72dcff;
+    --tone-mint: #77f0d0;
+    --tone-rose: #8ba7ff;
+    --tone-gold: #b7e9ff;
+    background:
+        radial-gradient(ellipse at 75% 6%, rgba(53, 164, 222, .2), transparent 36rem),
+        radial-gradient(ellipse at 5% 45%, rgba(69, 255, 206, .08), transparent 31rem),
+        linear-gradient(180deg, #091b2b 0%, var(--bg) 50rem);
+}
+body.arctic-orbit-theme::before {
+    opacity: .06;
+    background-image: linear-gradient(rgba(114, 220, 255, .32) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(114, 220, 255, .32) 1px, transparent 1px);
+}
+body.arctic-orbit-theme header,
+body.arctic-orbit-theme header.scrolled { background: rgba(6, 18, 29, .9); }
+body.arctic-orbit-theme .logo,
+body.arctic-orbit-theme .nav-links a:hover,
+body.arctic-orbit-theme .nav-links a.active { color: var(--primary-light); }
+body.arctic-orbit-theme .nav-links a::after { background: var(--accent); }
+body.arctic-orbit-theme .nav-toggle,
+body.arctic-orbit-theme .theme-toggle,
+body.arctic-orbit-theme .nav-links.open { color: var(--primary-light); background: rgba(13, 30, 43, .98); }
+body.arctic-orbit-theme .hero::before { background: radial-gradient(circle, rgba(114, 220, 255, .18), rgba(119, 240, 208, .05) 48%, transparent 72%); }
+body.arctic-orbit-theme .hero::after { border-color: rgba(114, 220, 255, .32); background: radial-gradient(circle, rgba(119, 240, 208, .08), transparent 65%); }
+body.arctic-orbit-theme .hero-left h1 { color: #f1fbff; }
+body.arctic-orbit-theme .hero-left h1 span { background-image: linear-gradient(110deg, #e4fbff, #72dcff 55%, #77f0d0); }
+body.arctic-orbit-theme .hero-left h2,
+body.arctic-orbit-theme .hero-floating-tag { color: var(--accent); }
+body.arctic-orbit-theme .hero-badge { color: #c8f3ff; border-color: rgba(114, 220, 255, .28); background: rgba(114, 220, 255, .065); }
+body.arctic-orbit-theme .hero-right img { border-color: rgba(211, 247, 255, .8); box-shadow: 0 0 0 10px rgba(114, 220, 255, .07), 0 26px 80px rgba(0, 0, 0, .45); }
+body.arctic-orbit-theme section:not(.hero):not(.stats-section) { border-top-color: rgba(114, 220, 255, .1); }
+body.arctic-orbit-theme section h2 { color: var(--heading); }
+body.arctic-orbit-theme section h2::before { color: var(--accent); }
+body.arctic-orbit-theme #about h2, body.arctic-orbit-theme #projects h2 { color: var(--primary); }
+body.arctic-orbit-theme #skills h2, body.arctic-orbit-theme #contact h2 { color: var(--accent); }
+body.arctic-orbit-theme #achievements h2 { color: var(--secondary); }
+body.arctic-orbit-theme .stat-card,
+body.arctic-orbit-theme .card,
+body.arctic-orbit-theme .skill,
+body.arctic-orbit-theme .project-card,
+body.arctic-orbit-theme .contact-container {
+    border-color: rgba(114, 220, 255, .16);
+    background-image: linear-gradient(145deg, rgba(114, 220, 255, .05), transparent 52%),
+        linear-gradient(145deg, #122a39, #091722);
+}
+body.arctic-orbit-theme .stat-number,
+body.arctic-orbit-theme .project-card h3,
+body.arctic-orbit-theme .skill i { color: var(--primary); }
+body.arctic-orbit-theme .stat-card:nth-child(2) .stat-number { color: var(--accent); }
+body.arctic-orbit-theme .stat-card:nth-child(3) .stat-number { color: var(--secondary); }
+body.arctic-orbit-theme .project-card:nth-child(3n + 2) h3 { color: var(--accent); }
+body.arctic-orbit-theme .project-card:nth-child(3n) h3 { color: var(--secondary); }
+body.arctic-orbit-theme .filter-btn.active,
+body.arctic-orbit-theme .btn:not(.btn-secondary) { color: #061923; background: linear-gradient(115deg, #72dcff, #77f0d0); }
+body.arctic-orbit-theme .form-group input,
+body.arctic-orbit-theme .form-group textarea { color: var(--heading); border-color: rgba(114, 220, 255, .22); background: rgba(6, 18, 29, .78); }
+body.arctic-orbit-theme .form-group label { color: var(--primary-light); }
+body.arctic-orbit-theme .contact-email a { color: var(--accent); }
+body.arctic-orbit-theme .chatbot-window,
+body.arctic-orbit-theme .auth-modal-card,
+body.arctic-orbit-theme .lightbox-content { background: linear-gradient(150deg, #122a39, #081722); }
+
+/* Solar Flare — carbon-black space with high-energy orange and solar gold. */
+body.solar-flare-theme {
+    --bg: #100b08;
+    --surface: #201610;
+    --surface-soft: #2c1d12;
+    --input: #160f0b;
+    --primary: #ff8a3d;
+    --primary-light: #ffd0a3;
+    --secondary: #ffcf4a;
+    --accent: #ff744f;
+    --heading: #fff7ed;
+    --text: #dfcdbb;
+    --muted: #b19b85;
+    --border: rgba(255, 151, 66, .2);
+    --tone-blue: #ff8a3d;
+    --tone-mint: #ffcf4a;
+    --tone-rose: #ff744f;
+    --tone-gold: #ffcf4a;
+    background:
+        radial-gradient(ellipse at 80% 5%, rgba(255, 95, 35, .2), transparent 35rem),
+        radial-gradient(ellipse at 8% 48%, rgba(255, 191, 62, .1), transparent 31rem),
+        linear-gradient(180deg, #1a100a 0%, var(--bg) 48rem);
+}
+body.solar-flare-theme::before {
+    opacity: .05;
+    background-image: linear-gradient(rgba(255, 151, 66, .34) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 151, 66, .34) 1px, transparent 1px);
+}
+body.solar-flare-theme header,
+body.solar-flare-theme header.scrolled { background: rgba(16, 11, 8, .9); }
+body.solar-flare-theme .logo,
+body.solar-flare-theme .nav-links a:hover,
+body.solar-flare-theme .nav-links a.active { color: var(--primary-light); }
+body.solar-flare-theme .nav-links a::after { background: var(--secondary); }
+body.solar-flare-theme .nav-toggle,
+body.solar-flare-theme .theme-toggle,
+body.solar-flare-theme .nav-links.open { color: var(--primary-light); background: rgba(32, 22, 16, .98); }
+body.solar-flare-theme .hero::before { background: radial-gradient(circle, rgba(255, 138, 61, .2), rgba(255, 207, 74, .06) 48%, transparent 72%); }
+body.solar-flare-theme .hero::after { border-color: rgba(255, 138, 61, .34); background: radial-gradient(circle, rgba(255, 116, 79, .09), transparent 65%); }
+body.solar-flare-theme .hero-left h1 { color: #fff7ed; }
+body.solar-flare-theme .hero-left h1 span { background-image: linear-gradient(110deg, #ffe4c7, #ff8a3d 55%, #ffcf4a); }
+body.solar-flare-theme .hero-left h2,
+body.solar-flare-theme .hero-floating-tag { color: var(--secondary); }
+body.solar-flare-theme .hero-badge { color: #ffdbb8; border-color: rgba(255, 138, 61, .3); background: rgba(255, 138, 61, .07); }
+body.solar-flare-theme .hero-right img { border-color: rgba(255, 208, 163, .8); box-shadow: 0 0 0 10px rgba(255, 138, 61, .075), 0 26px 80px rgba(0, 0, 0, .48); }
+body.solar-flare-theme section:not(.hero):not(.stats-section) { border-top-color: rgba(255, 151, 66, .1); }
+body.solar-flare-theme section h2 { color: var(--heading); }
+body.solar-flare-theme section h2::before { color: var(--secondary); }
+body.solar-flare-theme #about h2, body.solar-flare-theme #projects h2 { color: var(--primary); }
+body.solar-flare-theme #skills h2, body.solar-flare-theme #contact h2 { color: var(--secondary); }
+body.solar-flare-theme #achievements h2 { color: var(--accent); }
+body.solar-flare-theme .stat-card,
+body.solar-flare-theme .card,
+body.solar-flare-theme .skill,
+body.solar-flare-theme .project-card,
+body.solar-flare-theme .contact-container {
+    border-color: rgba(255, 151, 66, .16);
+    background-image: linear-gradient(145deg, rgba(255, 151, 66, .055), transparent 52%),
+        linear-gradient(145deg, #2c1d12, #17100c);
+}
+body.solar-flare-theme .stat-number,
+body.solar-flare-theme .project-card h3,
+body.solar-flare-theme .skill i { color: var(--primary); }
+body.solar-flare-theme .stat-card:nth-child(2) .stat-number { color: var(--secondary); }
+body.solar-flare-theme .stat-card:nth-child(3) .stat-number { color: var(--accent); }
+body.solar-flare-theme .project-card:nth-child(3n + 2) h3 { color: var(--secondary); }
+body.solar-flare-theme .project-card:nth-child(3n) h3 { color: var(--accent); }
+body.solar-flare-theme .filter-btn.active,
+body.solar-flare-theme .btn:not(.btn-secondary) { color: #261307; background: linear-gradient(115deg, #ff8a3d, #ffcf4a); }
+body.solar-flare-theme .form-group input,
+body.solar-flare-theme .form-group textarea { color: var(--heading); border-color: rgba(255, 151, 66, .22); background: rgba(16, 11, 8, .8); }
+body.solar-flare-theme .form-group label { color: var(--primary-light); }
+body.solar-flare-theme .contact-email a { color: var(--secondary); }
+body.solar-flare-theme .chatbot-window,
+body.solar-flare-theme .auth-modal-card,
+body.solar-flare-theme .lightbox-content { background: linear-gradient(150deg, #2c1d12, #160f0b); }
+
+@media (prefers-reduced-motion: reduce) {
+    body.event-horizon-theme *,
+    body.arctic-orbit-theme *,
+    body.solar-flare-theme * { scroll-behavior: auto; }
+}
