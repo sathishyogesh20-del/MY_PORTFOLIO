@@ -558,6 +558,7 @@ const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyTqASoylpAQJ1Z1_NV
 
 const contactForm = document.getElementById("contactForm");
 const contactSubmitBtn = document.getElementById("contactSubmitBtn");
+const contactFormStatus = document.getElementById("contact-form-status");
 
 function submitVerifiedContactForm() {
     if (!contactForm) return;
@@ -565,8 +566,9 @@ function submitVerifiedContactForm() {
     const formData = new FormData(contactForm);
     if (contactSubmitBtn) {
         contactSubmitBtn.disabled = true;
-        contactSubmitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+        contactSubmitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Sending...';
     }
+    if (contactFormStatus) contactFormStatus.textContent = "Sending your message…";
 
     fetch(WEB_APP_URL, {
         method: "POST",
@@ -577,15 +579,17 @@ function submitVerifiedContactForm() {
                 throw new Error("Contact form request failed.");
             }
             if (contactSubmitBtn) {
-                contactSubmitBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Message Sent ✔';
+                contactSubmitBtn.innerHTML = '<i class="fa-solid fa-circle-check" aria-hidden="true"></i> Message Sent ✔';
             }
+            if (contactFormStatus) contactFormStatus.textContent = "Your message was sent successfully.";
             const msgField = document.getElementById("message");
             if (msgField) msgField.value = "";
         })
         .catch(() => {
             if (contactSubmitBtn) {
-                contactSubmitBtn.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Something went wrong';
+                contactSubmitBtn.innerHTML = '<i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Something went wrong';
             }
+            if (contactFormStatus) contactFormStatus.textContent = "Sorry, your message could not be sent. Please try again or email Yogesh directly.";
         })
         .finally(() => {
             setTimeout(() => {
@@ -619,6 +623,7 @@ if (contactForm) {
                     contactSubmitBtn.innerHTML = '<i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send Message';
                 }, 3500);
             }
+            if (contactFormStatus) contactFormStatus.textContent = "Sign-in is unavailable. Please email Yogesh directly using the address below.";
         }
     });
 
@@ -635,10 +640,12 @@ const lightboxTitle = document.getElementById("lightbox-title");
 const lightboxIssuer = document.getElementById("lightbox-issuer");
 const lightboxDesc = document.getElementById("lightbox-desc");
 const lightboxLink = document.getElementById("lightbox-link");
+let lightboxReturnFocus = null;
 
 function openCertLightbox(triggerEl) {
     if (!certLightbox || !triggerEl) return;
 
+    lightboxReturnFocus = triggerEl;
     const title = triggerEl.getAttribute("data-cert-title") || "Certificate";
     const issuer = triggerEl.getAttribute("data-cert-issuer") || "Verified Issuer";
     const desc = triggerEl.getAttribute("data-cert-desc") || "";
@@ -658,6 +665,7 @@ function openCertLightbox(triggerEl) {
 
     certLightbox.removeAttribute("hidden");
     document.body.classList.add("modal-open");
+    if (lightboxClose) lightboxClose.focus();
 }
 
 function closeCertLightbox() {
@@ -665,7 +673,35 @@ function closeCertLightbox() {
         certLightbox.setAttribute("hidden", "");
         document.body.classList.remove("modal-open");
     }
+    if (lightboxReturnFocus && typeof lightboxReturnFocus.focus === "function") {
+        lightboxReturnFocus.focus();
+    }
+    lightboxReturnFocus = null;
 }
+
+function keepFocusInCertificateDialog(event) {
+    if (!certLightbox || certLightbox.hasAttribute("hidden") || event.key !== "Tab") return;
+
+    const focusable = certLightbox.querySelectorAll(
+        'button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+    );
+    if (!focusable.length) {
+        event.preventDefault();
+        return;
+    }
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && (document.activeElement === first || !certLightbox.contains(document.activeElement))) {
+        event.preventDefault();
+        last.focus();
+    } else if (!event.shiftKey && (document.activeElement === last || !certLightbox.contains(document.activeElement))) {
+        event.preventDefault();
+        first.focus();
+    }
+}
+
+document.addEventListener("keydown", keepFocusInCertificateDialog);
 
 document.querySelectorAll(".cert-card-trigger").forEach((card) => {
     card.addEventListener("click", () => openCertLightbox(card));
@@ -748,7 +784,10 @@ function toggleChatbot() {
         if (chatInput) chatInput.focus();
     } else {
         chatbotWindow.setAttribute("hidden", "");
-        if (chatbotToggle) chatbotToggle.setAttribute("aria-expanded", "false");
+        if (chatbotToggle) {
+            chatbotToggle.setAttribute("aria-expanded", "false");
+            chatbotToggle.focus();
+        }
     }
 }
 
@@ -824,11 +863,14 @@ function appendBotMessage(text, actions = []) {
             const targetId = btn.getAttribute("data-scroll");
             const targetEl = document.querySelector(targetId);
             if (targetEl) {
-                targetEl.scrollIntoView({ behavior: "smooth" });
-                // Minimize chat on small screens so visitor sees the section
+                targetEl.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
+                // Minimize chat on small screens so visitor sees the section.
                 if (window.innerWidth < 768) {
                     chatbotWindow.setAttribute("hidden", "");
-                    if (chatbotToggle) chatbotToggle.setAttribute("aria-expanded", "false");
+                    if (chatbotToggle) {
+                        chatbotToggle.setAttribute("aria-expanded", "false");
+                        chatbotToggle.focus();
+                    }
                 }
             }
         });
