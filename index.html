@@ -52,6 +52,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="themes.css">
+    <link rel="stylesheet" href="mobile-fixes.css">
 
     <script type="application/ld+json">
     {
@@ -212,7 +213,7 @@
     <div id="particles" aria-hidden="true"></div>
 
     <!-- Auth Modal (only triggered when visitor interacts with or submits the contact form) -->
-    <div id="auth-modal" class="auth-modal" hidden role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+    <div id="auth-modal" class="auth-modal" hidden role="dialog" aria-modal="true" aria-labelledby="auth-modal-title" aria-describedby="auth-modal-desc">
         <div class="auth-modal-overlay" id="auth-modal-overlay"></div>
         <div class="auth-modal-card">
             <button type="button" id="auth-modal-close" class="modal-close-btn" aria-label="Close sign-in modal">
@@ -225,7 +226,7 @@
                 <i class="fa-brands fa-google" aria-hidden="true"></i>
                 Sign in with Google
             </button>
-            <p id="auth-error" class="auth-error" hidden></p>
+            <p id="auth-error" class="auth-error" role="alert" aria-live="assertive" hidden></p>
         </div>
     </div>
 
@@ -390,7 +391,7 @@
                         data-cert-issuer="Google"
                         data-cert-desc="Achieved official certification from Google for Gemini AI mastery and student applications."
                         data-cert-img="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI_CERTIFICATE.png"
-                        role="button" tabindex="0" aria-label="View Google Gemini AI for Students certificate">
+                        role="button" tabindex="0" aria-haspopup="dialog" aria-label="View Google Gemini AI for Students certificate">
                         <div class="cert-image-container">
                             <img class="achievement-image"
                                 src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI_CERTIFICATE.png"
@@ -408,7 +409,7 @@
                         data-cert-issuer="Google"
                         data-cert-desc="Earned Google Gemini Certification in the competitive University Category for advanced generative AI comprehension."
                         data-cert-img="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI%20CERTFIFCATIONS%20FOR%20STUDENTS%20(UNIVERSITY).png"
-                        role="button" tabindex="0" aria-label="View Google Gemini AI University Category certificate">
+                        role="button" tabindex="0" aria-haspopup="dialog" aria-label="View Google Gemini AI University Category certificate">
                         <div class="cert-image-container">
                             <img class="achievement-image"
                                 src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI%20CERTFIFCATIONS%20FOR%20STUDENTS%20(UNIVERSITY).png"
@@ -426,7 +427,7 @@
                         data-cert-issuer="Google"
                         data-cert-desc="Credential recognized by Google for leveraging Gemini AI tools to instruct, structure, and educate."
                         data-cert-img="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI%20CERTFICATION%20FOR%20EDUCATOR.png"
-                        role="button" tabindex="0" aria-label="View Gemini for Educator certificate">
+                        role="button" tabindex="0" aria-haspopup="dialog" aria-label="View Gemini for Educator certificate">
                         <div class="cert-image-container">
                             <img class="achievement-image"
                                 src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GEMINI%20CERTFICATION%20FOR%20EDUCATOR.png"
@@ -443,7 +444,7 @@
                         data-cert-issuer="OpenAI"
                         data-cert-desc="OpenAI certificate demonstrating proficiency with prompt engineering, LLM architecture, and generative text capabilities."
                         data-cert-img="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/OPENAI%20CERTIFICATE.jpg"
-                        role="button" tabindex="0" aria-label="View OpenAI ChatGPT certificate">
+                        role="button" tabindex="0" aria-haspopup="dialog" aria-label="View OpenAI ChatGPT certificate">
                         <div class="cert-image-container">
                             <img class="achievement-image"
                                 src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/OPENAI%20CERTIFICATE.jpg"
@@ -461,7 +462,7 @@
                         data-cert-issuer="Anthropic"
                         data-cert-desc="Certified in Anthropic Claude AI fluency for student research, structured prompt workflows, and ethical AI development."
                         data-cert-img="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/CLAUDE%20CERTIFICATE%20(%20AI%20FLUENCY%20FOR%20STUDENTS.).png"
-                        role="button" tabindex="0" aria-label="View Anthropic Claude AI certificate">
+                        role="button" tabindex="0" aria-haspopup="dialog" aria-label="View Anthropic Claude AI certificate">
                         <div class="cert-image-container">
                             <img class="achievement-image"
                                 src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/CLAUDE%20CERTIFICATE%20(%20AI%20FLUENCY%20FOR%20STUDENTS.).png"
@@ -479,7 +480,7 @@
                         data-cert-issuer="Simplilearn / Google Cloud"
                         data-cert-desc="Fundamentals of Google Cloud infrastructure, cloud deployment models, and scalable computing."
                         data-cert-img="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GOOGLE%20CLOUD.png"
-                        role="button" tabindex="0" aria-label="View Simplilearn Google Cloud certificate">
+                        role="button" tabindex="0" aria-haspopup="dialog" aria-label="View Simplilearn Google Cloud certificate">
                         <div class="cert-image-container">
                             <img class="achievement-image"
                                 src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/GOOGLE%20CLOUD.png"
@@ -497,7 +498,7 @@
                         data-cert-issuer="Achievement"
                         data-cert-desc="Certificate and achievement details."
                         data-cert-img="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/WhatsApp%20Image%202026-10-01%20at%206.13.52%20PM.jpeg"
-                        role="button" tabindex="0" aria-label="View achievement certificate">
+                        role="button" tabindex="0" aria-haspopup="dialog" aria-label="View achievement certificate">
                         <div class="cert-image-container">
                             <img class="achievement-image"
                                 src="https://uploads.onecompiler.io/44rsm5t7v/44x8q9dpj/WhatsApp%20Image%202026-10-01%20at%206.13.52%20PM.jpeg"
@@ -811,6 +812,7 @@
                             <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send Message
                         </button>
                     </form>
+                    <p id="contact-form-status" class="contact-form-status" role="status" aria-live="polite" aria-atomic="true"></p>
 
                     <p class="contact-email">
                         Or email me directly at
@@ -826,7 +828,7 @@
     </div>
 
     <!-- Certificate Lightbox Modal Dialog -->
-    <div id="cert-lightbox" class="cert-lightbox" hidden role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
+    <div id="cert-lightbox" class="cert-lightbox" hidden role="dialog" aria-modal="true" aria-labelledby="lightbox-title" aria-describedby="lightbox-desc">
         <div class="lightbox-overlay" id="lightbox-overlay"></div>
         <div class="lightbox-content">
             <button type="button" id="lightbox-close" class="lightbox-close-btn" aria-label="Close certificate preview">
