@@ -29,6 +29,7 @@ const googleProvider = auth ? new firebase.auth.GoogleAuthProvider() : null;
 
 let currentUser = null;
 let pendingActionCallback = null;
+let authModalReturnFocus = null;
 
 // UI Elements
 const authModal = document.getElementById("auth-modal") || document.getElementById("auth-gate");
@@ -60,6 +61,7 @@ const emailInput = document.getElementById("email");
  */
 function openAuthModal(callback, customMessage) {
     pendingActionCallback = typeof callback === "function" ? callback : null;
+    authModalReturnFocus = document.activeElement;
 
     if (customMessage) {
         const descEl = document.getElementById("auth-modal-desc");
@@ -70,6 +72,7 @@ function openAuthModal(callback, customMessage) {
         authModal.removeAttribute("hidden");
         authModal.classList.add("open");
         document.body.classList.add("modal-open");
+        if (authModalClose) authModalClose.focus();
     }
 }
 
@@ -83,7 +86,36 @@ function closeAuthModal() {
         document.body.classList.remove("modal-open");
     }
     if (authError) authError.hidden = true;
+    if (authModalReturnFocus && typeof authModalReturnFocus.focus === "function") {
+        authModalReturnFocus.focus();
+    }
+    authModalReturnFocus = null;
 }
+
+function keepFocusInAuthModal(event) {
+    if (!authModal || authModal.hasAttribute("hidden") || event.key !== "Tab") return;
+
+    const focusable = authModal.querySelectorAll(
+        'button:not([disabled]), a[href], input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    if (!focusable.length) {
+        event.preventDefault();
+        authModal.focus();
+        return;
+    }
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && (document.activeElement === first || !authModal.contains(document.activeElement))) {
+        event.preventDefault();
+        last.focus();
+    } else if (!event.shiftKey && (document.activeElement === last || !authModal.contains(document.activeElement))) {
+        event.preventDefault();
+        first.focus();
+    }
+}
+
+document.addEventListener("keydown", keepFocusInAuthModal);
 
 /**
  * Update UI for authenticated user
