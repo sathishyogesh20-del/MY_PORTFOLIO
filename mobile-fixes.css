@@ -1,0 +1,302 @@
+/* Mobile layout fixes: loaded last so small-screen rules stay consistent. */
+
+/* Accessibility and resilient sizing across browsers, zoom levels, and input types. */
+img,
+svg {
+    max-width: 100%;
+}
+
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+    outline: 3px solid var(--accent, #1e6d5b);
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+.contact-form-status {
+    min-height: 1.5em;
+    margin-top: 12px;
+    color: var(--text, #43534f);
+    text-align: center;
+}
+
+@media (forced-colors: active) {
+    :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+        outline: 3px solid Highlight;
+    }
+
+    .btn,
+    .filter-btn.active {
+        border: 1px solid ButtonText;
+    }
+}
+@media (max-width: 600px) {
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: clip;
+    }
+
+    nav,
+    .hero,
+    section,
+    .stats-section {
+        width: calc(100% - 32px);
+        max-width: 520px;
+    }
+
+    nav {
+        min-height: 64px;
+        gap: 10px;
+    }
+
+    .logo {
+        flex: 0 1 auto;
+        font-size: 1rem;
+        white-space: nowrap;
+    }
+
+    .nav-toggle {
+        flex: 0 0 44px;
+        margin-left: auto;
+    }
+
+    #user-badge {
+        display: none !important;
+    }
+
+    .nav-links {
+        right: 0;
+        left: 0;
+        max-height: calc(100dvh - 78px);
+    }
+
+    .hero {
+        min-height: 0;
+        padding-top: 96px;
+        padding-bottom: 48px;
+        gap: 28px;
+    }
+
+    .hero-left,
+    .hero-right,
+    .hero-image-frame {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .hero-left h1 {
+        font-size: clamp(2.2rem, 10vw, 3.5rem);
+        line-height: 1.08;
+        overflow-wrap: anywhere;
+    }
+
+    .hero-badge {
+        max-width: 100%;
+        white-space: normal;
+        text-align: center;
+    }
+
+    .hero-left p {
+        font-size: .95rem;
+    }
+
+    .hero-actions {
+        align-items: stretch;
+    }
+
+    .hero-actions .btn {
+        flex-basis: 100%;
+        min-width: 0;
+    }
+
+    .hero-right img {
+        width: min(68vw, 260px);
+        max-width: 100%;
+    }
+
+    .hero-floating-tag {
+        right: -4px;
+        max-width: calc(100% + 8px);
+        white-space: nowrap;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .stat-card,
+    .card,
+    .skill,
+    .project-card,
+    .contact-container {
+        min-width: 0;
+    }
+
+    .skills-grid,
+    .projects-grid,
+    .achievements-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .project-filter-tabs {
+        max-width: 100%;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scrollbar-width: thin;
+    }
+
+    .filter-btn {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+
+    .project-card-header {
+        align-items: flex-start;
+    }
+
+    .project-badge {
+        max-width: 60%;
+        overflow-wrap: anywhere;
+    }
+
+    .project-actions .btn,
+    .submit-btn,
+    .lightbox-actions .btn {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .contact-container {
+        padding: 22px 16px;
+    }
+
+    .contact-form {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .form-group.full-width,
+    .submit-btn {
+        grid-column: 1;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .chat-input-area input {
+        min-width: 0;
+        font-size: 16px;
+    }
+
+    .auth-modal,
+    .cert-lightbox {
+        padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom));
+    }
+
+    .auth-modal-card,
+    .lightbox-content {
+        max-width: 100%;
+        max-height: calc(100dvh - 24px);
+        overflow-y: auto;
+    }
+
+    .chatbot-widget {
+        right: max(12px, env(safe-area-inset-right));
+        bottom: max(12px, env(safe-area-inset-bottom));
+    }
+
+    .chatbot-window {
+        position: fixed;
+        inset: auto max(12px, env(safe-area-inset-right)) max(88px, calc(env(safe-area-inset-bottom) + 88px)) max(12px, env(safe-area-inset-left));
+        width: auto;
+        height: min(68dvh, 540px);
+        max-height: calc(100dvh - 108px - env(safe-area-inset-top));
+    }
+
+    footer {
+        overflow-wrap: anywhere;
+    }
+}
+
+@media (max-width: 380px) {
+    nav,
+    .hero,
+    section,
+    .stats-section {
+        width: calc(100% - 28px);
+    }
+
+    .logo {
+        font-size: .9rem;
+        letter-spacing: .12em;
+    }
+
+    .hero-left h1 {
+        font-size: clamp(2rem, 10vw, 2.7rem);
+    }
+
+    .stats-grid {
+        gap: 8px;
+    }
+
+    .stat-card {
+        padding-inline: 6px;
+        overflow-wrap: anywhere;
+    }
+}
+
+/* Keep layouts usable on extra-narrow phones and landscape screens. */
+@media (max-width: 360px) {
+    nav,
+    .hero,
+    section,
+    .stats-section {
+        width: calc(100% - 24px);
+    }
+
+    .contact-container,
+    .card,
+    .project-card,
+    .skill {
+        padding-inline: 14px;
+    }
+
+    .chatbot-window {
+        right: max(8px, env(safe-area-inset-right));
+        left: max(8px, env(safe-area-inset-left));
+    }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+    .nav-links {
+        max-height: calc(100dvh - 72px);
+        overflow-y: auto;
+    }
+
+    .auth-modal-card,
+    .lightbox-content {
+        max-height: calc(100dvh - 20px);
+        overflow-y: auto;
+    }
+}
+
+@media (min-width: 1600px) {
+    nav,
+    .hero,
+    section,
+    .stats-section {
+        width: min(92%, 1360px);
+    }
+}
