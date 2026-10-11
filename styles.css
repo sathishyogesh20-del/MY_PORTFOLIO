@@ -43,7 +43,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 #motion-graphics { mix-blend-mode: screen; }
 
 /* Startup loader */
-.page-loader { position: fixed; z-index: 5000; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; padding: 24px; background: var(--bg); opacity: 0; transition: opacity .35s ease; }
+.page-loader { position: fixed; z-index: 5000; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; padding: 24px; background: var(--bg); background: color-mix(in srgb, var(--bg) 94%, transparent); backdrop-filter: blur(8px); opacity: 0; transition: opacity .45s cubic-bezier(.2,.75,.25,1); }
+.page-loader:not(.visible) { pointer-events: none; }
 .page-loader.visible { opacity: 1; }
 .page-loader p { color: var(--primary-light); font-size: .92rem; font-weight: 700; text-align: center; }
 .loader-orbit { position: relative; width: 74px; height: 74px; border: 1px solid var(--border); border-radius: 50%; animation: orbitSpin 2s linear infinite; }
