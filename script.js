@@ -1,24 +1,32 @@
 // Mark JavaScript as available without making the page depend on it.
 document.documentElement.classList.add("js-enabled");
 
-/* Brief branded loader, with a timeout for slow or blocked resources. */
+/* Brief branded loader: wait for the page structure, not every external asset. */
 const pageLoader = document.getElementById("page-loader");
 if (pageLoader) {
+    const loaderStartedAt = performance.now();
+    const minimumLoaderTime = 280;
+    let loaderDismissed = false;
+
     pageLoader.removeAttribute("hidden");
     requestAnimationFrame(() => pageLoader.classList.add("visible"));
 
-    let loaderDismissed = false;
     const dismissPageLoader = () => {
         if (loaderDismissed) return;
         loaderDismissed = true;
         pageLoader.classList.remove("visible");
-        setTimeout(() => pageLoader.setAttribute("hidden", ""), 350);
+        setTimeout(() => pageLoader.setAttribute("hidden", ""), 500);
     };
 
-    if (document.readyState === "complete") {
-        setTimeout(dismissPageLoader, 450);
+    const revealPage = () => {
+        const remainingTime = Math.max(0, minimumLoaderTime - (performance.now() - loaderStartedAt));
+        setTimeout(dismissPageLoader, remainingTime);
+    };
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", revealPage, { once: true });
     } else {
-        window.addEventListener("load", () => setTimeout(dismissPageLoader, 450), { once: true });
+        revealPage();
     }
     setTimeout(dismissPageLoader, 5000);
 }
