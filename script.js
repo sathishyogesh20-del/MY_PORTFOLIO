@@ -572,6 +572,9 @@ function submitVerifiedContactForm() {
     if (!contactForm) return;
 
     const formData = new FormData(contactForm);
+    // Shared secret so random scripts hitting this public Apps Script URL get rejected.
+    // Add the same value as a check in the Apps Script's doPost() — see README for the snippet.
+    formData.append("form_secret", "COSMOS_PORTFOLIO_2026");
     if (contactSubmitBtn) {
         contactSubmitBtn.disabled = true;
         contactSubmitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Sending...';
@@ -609,29 +612,42 @@ function submitVerifiedContactForm() {
         });
 }
 
+// Simple client-side cooldown so a script can't spam-submit the form repeatedly.
+const CONTACT_COOLDOWN_MS = 30000;
+function contactCooldownActive() {
+    const last = Number(localStorage.getItem("portfolio-last-contact-submit") || 0);
+    return Date.now() - last < CONTACT_COOLDOWN_MS;
+}
+function markContactSubmitted() {
+    localStorage.setItem("portfolio-last-contact-submit", String(Date.now()));
+}
+
 if (contactForm) {
     // When visitor attempts to submit the contact form
     contactForm.addEventListener("submit", (event) => {
         event.preventDefault();
 
-        // Verify if user is signed in with Google
+        // Honeypot: real visitors never see or fill this field. If it has a value, silently drop it.
+        const honeypot = document.getElementById("website");
+        if (honeypot && honeypot.value) {
+            if (contactFormStatus) contactFormStatus.textContent = "Your message was sent successfully.";
+            contactForm.reset();
+            return;
+        }
+
+        if (contactCooldownActive()) {
+            if (contactFormStatus) contactFormStatus.textContent = "You already sent a message recently — please wait a moment before sending another.";
+            return;
+        }
+
+        // Google sign-in is offered for a verified badge, but is optional — it should
+        // never be the only way to reach Yogesh.
         if (typeof window.isUserAuthenticated === "function" && window.isUserAuthenticated()) {
+            markContactSubmitted();
             submitVerifiedContactForm();
-        } else if (typeof window.openAuthModal === "function") {
-            window.openAuthModal(() => {
-                submitVerifiedContactForm();
-            }, "Sign in with Google to send a verified message to Yogesh.");
         } else {
-            // Never send a message as verified when the authentication module is unavailable.
-            if (contactSubmitBtn) {
-                contactSubmitBtn.disabled = true;
-                contactSubmitBtn.innerHTML = '<i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Sign-in unavailable — email directly';
-                setTimeout(() => {
-                    contactSubmitBtn.disabled = false;
-                    contactSubmitBtn.innerHTML = '<i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send Message';
-                }, 3500);
-            }
-            if (contactFormStatus) contactFormStatus.textContent = "Sign-in is unavailable. Please email Yogesh directly using the address below.";
+            markContactSubmitted();
+            submitVerifiedContactForm();
         }
     });
 
