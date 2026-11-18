@@ -35,6 +35,18 @@ const sections = document.querySelectorAll("section");
 const navLinks = document.querySelectorAll(".nav-links a");
 const header = document.querySelector("header");
 const subtitle = document.querySelector(".hero-left h2");
+
+const heroProfile = document.querySelector(".hero-image-frame");
+if (heroProfile) {
+    heroProfile.addEventListener("click", () => {
+        const revealed = heroProfile.classList.toggle("is-revealed");
+        heroProfile.setAttribute("aria-pressed", String(revealed));
+        heroProfile.setAttribute(
+            "aria-label",
+            revealed ? "Show default profile photo" : "Show alternate profile portrait"
+        );
+    });
+}
 const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
 ).matches;
@@ -217,6 +229,20 @@ if ("IntersectionObserver" in window) {
     });
 }
 
+/* Cross-fade the fixed illustration as each page section reaches the viewport center. */
+const scrollArtwork = document.getElementById("scroll-artwork");
+if (scrollArtwork && "IntersectionObserver" in window) {
+    const artworkObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                scrollArtwork.dataset.scene = entry.target.id || "home";
+            }
+        });
+    }, { rootMargin: "-42% 0px -42% 0px", threshold: 0 });
+
+    sections.forEach((section) => artworkObserver.observe(section));
+}
+
 /* Header scroll state is batched with scroll-progress updates above. */
 let lastScrollY = window.scrollY;
 
@@ -292,8 +318,8 @@ if ("IntersectionObserver" in window) {
     });
 }
 
-/* Enhanced motion graphics: canvas particles */
-if (!prefersReducedMotion) {
+/* Animated background removed to keep attention on the portfolio content. */
+if (false) {
     const canvas = document.createElement("canvas");
     canvas.id = "motion-graphics";
     Object.assign(canvas.style, {
@@ -498,11 +524,8 @@ if (!prefersReducedMotion) {
     animateMotion();
 }
 
-/* Cursor glow */
-if (
-    !prefersReducedMotion &&
-    window.matchMedia("(pointer: fine)").matches
-) {
+/* Cursor glow removed to keep the interface quiet. */
+if (false) {
     const cursorGlow = document.createElement("div");
     cursorGlow.className = "cursor-glow";
 
@@ -537,11 +560,8 @@ if (
     }, { passive: true });
 }
 
-/* Card tilt */
-if (
-    !prefersReducedMotion &&
-    window.matchMedia("(pointer: fine)").matches
-) {
+/* Card tilt removed to keep the interface quiet. */
+if (false) {
     document.querySelectorAll(".skill, .project-card").forEach((card) => {
         card.addEventListener("mousemove", (event) => {
             const bounds = card.getBoundingClientRect();
@@ -572,9 +592,6 @@ function submitVerifiedContactForm() {
     if (!contactForm) return;
 
     const formData = new FormData(contactForm);
-    // Shared secret so random scripts hitting this public Apps Script URL get rejected.
-    // Add the same value as a check in the Apps Script's doPost() — see README for the snippet.
-    formData.append("form_secret", "COSMOS_PORTFOLIO_2026");
     if (contactSubmitBtn) {
         contactSubmitBtn.disabled = true;
         contactSubmitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Sending...';
@@ -612,42 +629,29 @@ function submitVerifiedContactForm() {
         });
 }
 
-// Simple client-side cooldown so a script can't spam-submit the form repeatedly.
-const CONTACT_COOLDOWN_MS = 30000;
-function contactCooldownActive() {
-    const last = Number(localStorage.getItem("portfolio-last-contact-submit") || 0);
-    return Date.now() - last < CONTACT_COOLDOWN_MS;
-}
-function markContactSubmitted() {
-    localStorage.setItem("portfolio-last-contact-submit", String(Date.now()));
-}
-
 if (contactForm) {
     // When visitor attempts to submit the contact form
     contactForm.addEventListener("submit", (event) => {
         event.preventDefault();
 
-        // Honeypot: real visitors never see or fill this field. If it has a value, silently drop it.
-        const honeypot = document.getElementById("website");
-        if (honeypot && honeypot.value) {
-            if (contactFormStatus) contactFormStatus.textContent = "Your message was sent successfully.";
-            contactForm.reset();
-            return;
-        }
-
-        if (contactCooldownActive()) {
-            if (contactFormStatus) contactFormStatus.textContent = "You already sent a message recently — please wait a moment before sending another.";
-            return;
-        }
-
-        // Google sign-in is offered for a verified badge, but is optional — it should
-        // never be the only way to reach Yogesh.
+        // Verify if user is signed in with Google
         if (typeof window.isUserAuthenticated === "function" && window.isUserAuthenticated()) {
-            markContactSubmitted();
             submitVerifiedContactForm();
+        } else if (typeof window.openAuthModal === "function") {
+            window.openAuthModal(() => {
+                submitVerifiedContactForm();
+            }, "Sign in with Google to send a verified message to Yogesh.");
         } else {
-            markContactSubmitted();
-            submitVerifiedContactForm();
+            // Never send a message as verified when the authentication module is unavailable.
+            if (contactSubmitBtn) {
+                contactSubmitBtn.disabled = true;
+                contactSubmitBtn.innerHTML = '<i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Sign-in unavailable — email directly';
+                setTimeout(() => {
+                    contactSubmitBtn.disabled = false;
+                    contactSubmitBtn.innerHTML = '<i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send Message';
+                }, 3500);
+            }
+            if (contactFormStatus) contactFormStatus.textContent = "Sign-in is unavailable. Please email Yogesh directly using the address below.";
         }
     });
 
